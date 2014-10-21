@@ -18,12 +18,17 @@
 
 define('PBK-START-TIME', microtime(true));
 
+# @TODO: i must add getting solution routing configuration.
 
 if (PHP_SAPI === 'cli') {
 	# @TODO: i will add console application routing
 } else {
 	$projectName = $_SERVER["SERVER_NAME"];
 }	
+ 
+# @TODO: Until creating routing configuration i set projectName as localhost.
+# @TODO: after creating and getting routing configuration i will delete code below
+$projectName = "localhost";
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +36,7 @@ if (PHP_SAPI === 'cli') {
 |--------------------------------------------------------------------------
 |
 | I defined some path which can be called anywhere. Root, Solution, Public,
-| Vendor, Project and Application path is defined here. I will move 
+| Vendor, Apps and Application path is defined here. I will move 
 | framework path to the vendor when i finish project-bk
 |
 | @TODO: moving framework to the vendor folder. 
@@ -42,12 +47,12 @@ define("FRAMEWORK_PATH", 			ROOT_PATH . "framework/" );
 define("SOLUTION_PATH", 			ROOT_PATH . "solutions/" );
 define("PUBLIC_PATH", 				ROOT_PATH . "public_html/" );
 define("VENDOR_PATH", 				ROOT_PATH . "vendor/" );
-define("PROJECT_PATH", 				ROOT_PATH . "projects/" );
-define("APPLICATION_PATH", 			ROOT_PATH . "projects/{$projectName}/" );
+define("PROJECT_PATH", 				ROOT_PATH . "applications/" );
+define("APPLICATION_PATH", 			ROOT_PATH . "applications/{$projectName}/" );
 define("PROJECT_NAME", 				$projectName );
 
 if ( !is_file( APPLICATION_PATH."application.php" ) ) 
-	die("There is no application called \"{$projectName}\" in your projects folder.");
+	die("There is no application called \"{$projectName}\" in your apps folder.");
 
 /*
 |--------------------------------------------------------------------------
