@@ -1,0 +1,17 @@
+{
+    "name": "architect/project",
+    "description": "architect web ui project ",
+    "keywords": ["architect", "framework", "php"],
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "thecodemasterzz",
+            "email": "thecodemasterzz@gmail.com"
+        }
+    ],   
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3"
+    }
+}
