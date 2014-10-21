@@ -1,6 +1,6 @@
 {
     "name": "architect/architect",
-    "description": "the architect framework",
+    "description": "architect - a PHP Framework for rapid developing",
     "keywords": ["architect", "framework", "php"],
     "type": "project",
     "license": "MIT",
