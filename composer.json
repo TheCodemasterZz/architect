@@ -1,20 +1,18 @@
 {
-    "name": "project-bk/project-bk",
-    "description": "project-bk framework",
-    "keywords": ["project-bk", "framework"],
+    "name": "architect/architect",
+    "description": "the architect framework",
+    "keywords": ["architect", "framework", "php"],
     "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "bkalaycioglu",
+            "name": "thecodemasterzz",
             "email": "thecodemasterzz@gmail.com"
         }
     ],   
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.3",
-        "filp/whoops": "1.1.2",
-        "slim/slim": "2.4.3"
+        "php": ">=5.3.3"
     },
     "autoload": {
          "psr-0": {
