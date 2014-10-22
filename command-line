@@ -7,6 +7,9 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
+if (PHP_SAPI === 'cli')
+	die("You can not run command-line interface here!!.");
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
