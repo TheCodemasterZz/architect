@@ -7,7 +7,8 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-if (PHP_SAPI === 'cli')
+
+if (PHP_SAPI !== 'cli')
 	die("You can not run command-line interface here!!.");
 
 /*
@@ -22,4 +23,4 @@ if (PHP_SAPI === 'cli')
 |
 */
 
-require __DIR__.'/solution/autoload.php';
+require 'solution/autoload.php';

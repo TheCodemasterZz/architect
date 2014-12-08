@@ -19,7 +19,7 @@
 |
 */
 
-require __DIR__.'/../solution/autoload.php';
+require '../solution/autoload.php';
 
 /*
 |--------------------------------------------------------------------------

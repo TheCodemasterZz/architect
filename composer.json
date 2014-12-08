@@ -12,7 +12,9 @@
     ],   
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "illuminate/config": "~5.0@dev",
+        "filp/whoops": "~1.2@dev"
     },
     "autoload": {
          "psr-0": {

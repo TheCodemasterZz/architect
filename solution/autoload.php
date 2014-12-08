@@ -77,5 +77,4 @@ require VENDOR_PATH.'autoload.php';
 | you want to develope console application. (command-line application) 
 */
 
-
 include_once APPLICATION_PATH."application.php";
