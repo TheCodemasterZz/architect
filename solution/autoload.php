@@ -38,17 +38,16 @@ $projectName = "localhost";
 | I defined some path which can be called anywhere. Root, Solution, Public,
 | Vendor, Apps and Application path is defined here. I will move 
 | framework path to the vendor when i finish project-bk
-|
-| @TODO: moving framework to the vendor folder. 
 */
 
-define("ROOT_PATH", 				__DIR__ . "/../" );
-define("FRAMEWORK_PATH", 			ROOT_PATH . "framework/" );
-define("SOLUTION_PATH", 			ROOT_PATH . "solutions/" );
-define("PUBLIC_PATH", 				ROOT_PATH . "public_html/" );
-define("VENDOR_PATH", 				ROOT_PATH . "vendor/" );
-define("PROJECT_PATH", 				ROOT_PATH . "applications/" );
-define("APPLICATION_PATH", 			ROOT_PATH . "applications/{$projectName}/" );
+define("ROOT_PATH", 				__DIR__ 	. "/../" );
+define("FRAMEWORK_PATH", 			ROOT_PATH 	. "framework/" );
+define("SOLUTION_PATH", 			ROOT_PATH 	. "solutions/" );
+define("PUBLIC_PATH", 				ROOT_PATH 	. "public_html/" );
+define("VENDOR_PATH", 				ROOT_PATH 	. "vendor/" );
+define("STORAGE_PATH", 				ROOT_PATH 	. "storage/" );
+define("PROJECT_PATH", 				ROOT_PATH 	. "applications/" );
+define("APPLICATION_PATH", 			ROOT_PATH 	. "applications/{$projectName}/" );
 define("PROJECT_NAME", 				$projectName );
 
 if ( !is_file( APPLICATION_PATH."application.php" ) ) 
@@ -69,6 +68,20 @@ require VENDOR_PATH.'autoload.php';
 
 /*
 |--------------------------------------------------------------------------
+| Error Handler
+|--------------------------------------------------------------------------
+|
+| Error Handler is set by checking error config parameter in related
+| enviroment folder in application config folder path. 
+|
+*/
+
+$whoops = new Whoops\Run();
+$whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
+$whoops->register();  
+
+/*
+|--------------------------------------------------------------------------
 | Application Routing
 |--------------------------------------------------------------------------
 |
@@ -76,5 +89,6 @@ require VENDOR_PATH.'autoload.php';
 | solution config file. However routing may be done in different way if
 | you want to develope console application. (command-line application) 
 */
+
 
 include_once APPLICATION_PATH."application.php";
