@@ -40,13 +40,11 @@ $projectName = "localhost";
 | framework path to the vendor when i finish project-bk
 */
 
-define("ROOT_PATH", 				__DIR__ 	. "/../" );
-define("FRAMEWORK_PATH", 			ROOT_PATH 	. "framework/" );
+define("ROOT_PATH", 				__DIR__ 	. "/" );
 define("SOLUTION_PATH", 			ROOT_PATH 	. "solutions/" );
-define("PUBLIC_PATH", 				ROOT_PATH 	. "public_html/" );
-define("VENDOR_PATH", 				ROOT_PATH 	. "vendor/" );
-define("STORAGE_PATH", 				ROOT_PATH 	. "storage/" );
-define("PROJECT_PATH", 				ROOT_PATH 	. "applications/" );
+define("PUBLIC_PATH", 				ROOT_PATH 	. "../public_html/" );
+define("VENDOR_PATH", 				ROOT_PATH 	. "../vendor/" );
+define("STORAGE_PATH", 				ROOT_PATH 	. "../storage/" );
 define("APPLICATION_PATH", 			ROOT_PATH 	. "applications/{$projectName}/" );
 define("PROJECT_NAME", 				$projectName );
 

@@ -12,8 +12,10 @@ namespace Multiple\Dashboard2\Controllers;
 class IndexController extends \Phalcon\Mvc\Controller
 {
     public function indexAction()
-    {
-    	echo 'as';
-    	die;
+    {	
+    	$this->assets
+		    ->collection('header')
+		    ->addJs('js/jquery.js')
+		    ->addJs('js/bootstrap.min.js');
     }
 }

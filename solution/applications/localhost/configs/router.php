@@ -7,7 +7,3 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-
-return array(
-	'name' => 'The Architect Solution'
-);

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "292cd5fa85a945865c255397868df38a",
+    "hash": "70ee78008b8fc74c9df51cd063d18d21",
     "packages": [
         {
             "name": "filp/whoops",
@@ -113,6 +113,61 @@
             "time": "2014-11-06 03:46:58"
         },
         {
+            "name": "smarty/smarty",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smarty-php/smarty.git",
+                "reference": "ffbfe4004365e7e58aa71bf4a49277bb18384fdd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/ffbfe4004365e7e58aa71bf4a49277bb18384fdd",
+                "reference": "ffbfe4004365e7e58aa71bf4a49277bb18384fdd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "libs/Smarty.class.php",
+                    "libs/SmartyBC.class.php",
+                    "libs/sysplugins/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "http://www.smarty.net",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2014-11-23 12:25:09"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "dev-master",
             "source": {
@@ -170,7 +225,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "filp/whoops": 20,
-        "phalcon/incubator": 20
+        "phalcon/incubator": 20,
+        "smarty/smarty": 20
     },
     "prefer-stable": false,
     "platform": {

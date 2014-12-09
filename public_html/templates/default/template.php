@@ -16,6 +16,7 @@
             background: url('<?=BASE_URL;?>templates/<?=THEME_NAME;?>/img/bg.png') no-repeat center center scroll;
         }
     </style>
+    <?php $application->assets->outputJs('header') ?>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,7 +27,7 @@
 <body>
     <!-- Header -->
     <header id="top" class="header">
-        <?php echo $application->content ?>
+        <?php echo CONTENT ?>
     </header>
 
     <!-- jQuery Version 2.1.1 -->

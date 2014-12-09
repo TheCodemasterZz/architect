@@ -14,7 +14,8 @@
     "require": {
         "php": ">=5.3.3",
         "filp/whoops": "~1.2@dev",
-        "phalcon/incubator": "dev-master"
+        "phalcon/incubator": "dev-master",
+        "smarty/smarty": "~3.1@dev"
     },
     "autoload": {
          "psr-0": {
