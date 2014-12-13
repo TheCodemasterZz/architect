@@ -7,7 +7,7 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-namespace Multiple\Dashboard\Controllers;
+namespace Modules\Dashboard\Controllers;
 
 /**
  * @RoutePrefix("/api/users")

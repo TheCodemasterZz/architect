@@ -7,7 +7,7 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-namespace Multiple\Dashboard\Controllers;
+namespace Modules\Dashboard\Controllers;
 
 class IndexController extends \Phalcon\Mvc\Controller
 {
@@ -32,14 +32,13 @@ class IndexController extends \Phalcon\Mvc\Controller
     }
     
     public function indexAction()
-    {	
-        echo $this->translate->_('bye');die;
+    {
     	$this->assets
-		    ->addCss('assets/css/bootstrap.min.css')
-		    ->addCss('assets/css/style.css');
+		    ->addCss('global/css/bootstrap.min.css')
+		    ->addCss('assets/themes/my.theme/css/style.css');
 
     	$this->assets
 		    ->addJs('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-		    ->addJs('assets/js/bootstrap.min.js');
+		    ->addJs('global/js/bootstrap.min.js');
     }
 }

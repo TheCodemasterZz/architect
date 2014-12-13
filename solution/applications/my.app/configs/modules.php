@@ -9,7 +9,7 @@
 
 return array(
 	'dashboard' => array(
-		'className' => 'Multiple\Dashboard\Module',
+		'className' => 'Modules\Dashboard\Module',
 		'path' => APPLICATION_PATH . 'modules/dashboard/Module.php'
 	)
 );

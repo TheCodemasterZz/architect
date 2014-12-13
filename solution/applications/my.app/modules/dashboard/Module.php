@@ -7,13 +7,15 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-namespace Multiple\Dashboard;
+namespace Modules\Dashboard;
 
 use \Phalcon\Mvc\View,
     \Phalcon\Mvc\ModuleDefinitionInterface;
 
 class Module implements ModuleDefinitionInterface
 {
+	public $moduleName = "dashboard";
+
 	public function registerautoloaders() {}
 
 	public function registerServices($di)
@@ -23,7 +25,7 @@ class Module implements ModuleDefinitionInterface
 
 		//Registering the view component
 		$di->set('view', function() use ($view) {
-			$view->setViewsDir(APPLICATION_PATH.'modules/dashboard/views/');
+			$view->setViewsDir(APPLICATION_PATH."modules/{$this->moduleName}/views/");
 			$view->registerEngines( $view->getRegisteredEngines() );
 			return $view;
 		});

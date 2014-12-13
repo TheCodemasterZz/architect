@@ -20,7 +20,9 @@ define('PBK-START-TIME', microtime(true));
 
 # @TODO: i must add getting solution routing configuration.
 
+$applicationFile = "application";
 if (PHP_SAPI === 'cli') {
+	$applicationFile = "command";
 	# @TODO: i will add console application routing
 } else {
 	$projectName = $_SERVER["SERVER_NAME"];
@@ -75,4 +77,4 @@ require VENDOR_PATH.'autoload.php';
 | you want to develope console application. (command-line application) 
 */
 
-include_once APPLICATION_PATH."application.php";
+include_once APPLICATION_PATH."{$applicationFile}.php";

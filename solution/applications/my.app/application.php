@@ -8,10 +8,6 @@
  */
 
 
-define("BASE_URL",	"http://project-bk/");
-define("THEME_NAME", 	"default" );
-define("ENVIRONMENT", 	"development" );
-
 try {
 
 	$config = new \Phalcon\Config(
@@ -41,8 +37,8 @@ try {
 	//TODO: hepsini istersem yükle yapacağım.
 
 	//TODO: Config yapılacak
-	$di->set('config', function (){
-        return new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+	$di->set('config', function () use ($config) {
+        return $config;
     });
 
 	//Setup the database service

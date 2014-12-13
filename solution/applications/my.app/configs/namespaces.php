@@ -8,6 +8,6 @@
  */
 
 return array(
-    "Multiple\Dashboard\Controllers" => APPLICATION_PATH.'modules/dashboard/controllers/',
-    "Multiple\Dashboard\Models" => APPLICATION_PATH.'modules/dashboard/models/'
+    "Modules\Dashboard\Controllers" => APPLICATION_PATH.'modules/dashboard/controllers/',
+    "Modules\Dashboard\Models" => APPLICATION_PATH.'modules/dashboard/models/'
 );
