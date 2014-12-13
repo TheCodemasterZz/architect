@@ -7,22 +7,11 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-/*
-|--------------------------------------------------------------------------
-| Register Start Time of project-bk application
-|--------------------------------------------------------------------------
-|
-| As a microtime, i register PBK-START-TIME variable as a start time of the
-| project-bk framework. We can call it back for calculation loading time.
-*/
-
-define('PBK-START-TIME', microtime(true));
-
 # @TODO: i must add getting solution routing configuration.
 
-$applicationFile = "application";
+$applicationFile = "startMvc";
 if (PHP_SAPI === 'cli') {
-	$applicationFile = "command";
+	$applicationFile = "startCli";
 	# @TODO: i will add console application routing
 } else {
 	$projectName = $_SERVER["SERVER_NAME"];
@@ -51,7 +40,7 @@ define("APPLICATION_PATH", SOLUTION_PATH."applications/{$projectName}/" );
 define("PUBLIC_PATH", ROOT_PATH."public_html/" );
 define("VENDOR_PATH", ROOT_PATH."vendor/" );
 
-if ( !is_file( APPLICATION_PATH."application.php" ) ) 
+if ( !is_file( APPLICATION_PATH."{$applicationFile}.php" ) ) 
 	die("There is no application called \"{$projectName}\" in your apps folder.");
 
 /*

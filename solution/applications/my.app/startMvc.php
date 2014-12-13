@@ -11,7 +11,7 @@
 try {
 
 	$config = new \Phalcon\Config(
-		require APPLICATION_PATH."configs/app.php"
+		require APPLICATION_PATH."configs/application.php"
 	);
 
 	/*
