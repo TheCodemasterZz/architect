@@ -28,7 +28,9 @@ if (PHP_SAPI === 'cli') {
  
 # @TODO: Until creating routing configuration i set projectName as localhost.
 # @TODO: after creating and getting routing configuration i will delete code below
-$projectName = "localhost";
+$projectName = "my.app";
+
+define("PROJECT_NAME", $projectName );
 
 /*
 |--------------------------------------------------------------------------
@@ -40,13 +42,12 @@ $projectName = "localhost";
 | framework path to the vendor when i finish project-bk
 */
 
-define("ROOT_PATH", 				__DIR__ 	. "/" );
-define("SOLUTION_PATH", 			ROOT_PATH 	. "solutions/" );
-define("PUBLIC_PATH", 				ROOT_PATH 	. "../public_html/" );
-define("VENDOR_PATH", 				ROOT_PATH 	. "../vendor/" );
-define("STORAGE_PATH", 				ROOT_PATH 	. "../storage/" );
-define("APPLICATION_PATH", 			ROOT_PATH 	. "applications/{$projectName}/" );
-define("PROJECT_NAME", 				$projectName );
+define("ROOT_PATH", __DIR__."/../" );
+define("SOLUTION_PATH", ROOT_PATH."solution/" );
+define("STORAGE_PATH", ROOT_PATH."storage/" );
+define("APPLICATION_PATH", SOLUTION_PATH."applications/{$projectName}/" );
+define("PUBLIC_PATH", ROOT_PATH."public_html/" );
+define("VENDOR_PATH", ROOT_PATH."vendor/" );
 
 if ( !is_file( APPLICATION_PATH."application.php" ) ) 
 	die("There is no application called \"{$projectName}\" in your apps folder.");
@@ -66,20 +67,6 @@ require VENDOR_PATH.'autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Error Handler
-|--------------------------------------------------------------------------
-|
-| Error Handler is set by checking error config parameter in related
-| enviroment folder in application config folder path. 
-|
-*/
-
-$whoops = new Whoops\Run();
-$whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
-$whoops->register();  
-
-/*
-|--------------------------------------------------------------------------
 | Application Routing
 |--------------------------------------------------------------------------
 |
@@ -87,6 +74,5 @@ $whoops->register();
 | solution config file. However routing may be done in different way if
 | you want to develope console application. (command-line application) 
 */
-
 
 include_once APPLICATION_PATH."application.php";

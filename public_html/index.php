@@ -20,14 +20,3 @@
 */
 
 require '../solution/autoload.php';
-
-/*
-|--------------------------------------------------------------------------
-| Application Theme
-|--------------------------------------------------------------------------
-|
-| After application routing, template.php is setting here by looking the 
-| parameters in app.php config file.
-*/
-
-require PUBLIC_PATH.'/templates/'.THEME_NAME.'/template.php';
