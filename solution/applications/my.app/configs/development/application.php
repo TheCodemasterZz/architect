@@ -2,7 +2,7 @@
 
 return array(
     "app" => array(
-        "appName"  => "architect framework",
+        "appName"  => "my dev architect framework",
         "themeName" => "my.theme",
         "enviroment" => "development"
     )

@@ -9,9 +9,20 @@
 
 # @TODO: i must add getting solution routing configuration.
 
-$applicationFile = "startMvc";
+$applicationFile = "application";
+
+# Global function for file including if exists.
+function _gf($folderName, $fileName) {
+	$file = "{$folderName}" . ENVIRONMENT . "/{$fileName}";
+    if (!file_exists($file)) {
+		$file = "{$folderName}{$fileName}";
+	    if (!file_exists($file))
+	    	return false;
+    }
+	return $file;
+}
+
 if (PHP_SAPI === 'cli') {
-	$applicationFile = "startCli";
 	# @TODO: i will add console application routing
 } else {
 	$projectName = $_SERVER["SERVER_NAME"];
@@ -65,5 +76,38 @@ require VENDOR_PATH.'autoload.php';
 | solution config file. However routing may be done in different way if
 | you want to develope console application. (command-line application) 
 */
+
+include_once APPLICATION_PATH."{$applicationFile}.php";
+
+return;
+
+$fileContent = file_get_contents(APPLICATION_PATH."{$applicationFile}.php");
+$newFileName = APPLICATION_PATH . "application.compiled.php";
+
+if (!file_exists($newFileName)) {
+
+	$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
+	$regexp = 'return include_once _gf\(([^)>]*?)[,]([, ])\"([^)>]*?)\"\);';
+	if(preg_match_all("/$regexp/siU", $fileContent, $matches)) {
+
+		$i = 0;
+		foreach ($matches[0] as $key => $value) {
+			$matches[1][$i] = str_replace(".", "", $matches[1][$i]);
+			$matches[1][$i] = str_replace("\"", "", $matches[1][$i]);
+			$matches[1][$i] = str_replace("APPLICATION_PATH", APPLICATION_PATH, $matches[1][$i]);
+			$configContent = file_get_contents( _gf($matches[1][$i], $matches[3][$i] ) );
+			$configContent = str_replace("<?php", "", $configContent);
+			$configContent = str_replace("<?", "", $configContent);
+			$configContent = str_replace("?>", "", $configContent);
+			$fileContent = str_replace($matches[0][$i], $configContent, $fileContent);
+
+			$i += 1;
+		}
+	}
+
+	$fh = fopen($newFileName, 'w') or die("can't open file");
+	fwrite($fh, $fileContent);
+	fclose($fh);
+}
 
 include_once APPLICATION_PATH."{$applicationFile}.php";

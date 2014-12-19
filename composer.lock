@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70ee78008b8fc74c9df51cd063d18d21",
+    "hash": "5a82b124a194683b9954ab6071a1e595",
     "packages": [
         {
             "name": "filp/whoops",
@@ -63,6 +63,123 @@
                 "zf2"
             ],
             "time": "2014-11-29 09:19:11"
+        },
+        {
+            "name": "gossi/collection",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gossi/collection.git",
+                "reference": "339bda4e443645d0cd9165302ee23f44d4bdfa90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gossi/collection/zipball/339bda4e443645d0cd9165302ee23f44d4bdfa90",
+                "reference": "339bda4e443645d0cd9165302ee23f44d4bdfa90",
+                "shasum": ""
+            },
+            "require": {
+                "gossi/common": "~0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "gossi\\collection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP Collections library",
+            "keywords": [
+                "collection",
+                "collections",
+                "list",
+                "map",
+                "queue",
+                "set",
+                "stack"
+            ],
+            "time": "2014-11-09 19:10:34"
+        },
+        {
+            "name": "gossi/common",
+            "version": "v0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gossi/common.git",
+                "reference": "88362cd8c06d0f5f7d02870f64105d3912d95044"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gossi/common/zipball/88362cd8c06d0f5f7d02870f64105d3912d95044",
+                "reference": "88362cd8c06d0f5f7d02870f64105d3912d95044",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "gossi\\common\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Common php interfaces and classes",
+            "keywords": [
+                "commons",
+                "php"
+            ],
+            "time": "2014-11-06 01:24:21"
+        },
+        {
+            "name": "joseph-lenton/php-error",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JosephLenton/PHP-Error.git",
+                "reference": "9918dd5eeec527846d43c92a4c9880bfcdd0de14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JosephLenton/PHP-Error/zipball/9918dd5eeec527846d43c92a4c9880bfcdd0de14",
+                "reference": "9918dd5eeec527846d43c92a4c9880bfcdd0de14",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/php_error.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Joseph Lenton",
+                    "homepage": "http://www.playmycode.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Better error reporting for PHP, and prettier too!",
+            "homepage": "https://github.com/JosephLenton/PHP-Error",
+            "keywords": [
+                "error",
+                "php",
+                "reporting"
+            ],
+            "time": "2013-08-05 19:13:00"
         },
         {
             "name": "phalcon/incubator",
@@ -218,6 +335,206 @@
                 "mailer"
             ],
             "time": "2014-12-05 14:17:46"
+        },
+        {
+            "name": "symfony/config",
+            "version": "2.7.x-dev",
+            "target-dir": "Symfony/Component/Config",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Config.git",
+                "reference": "a5e1468d321b0595fa36399ce5761f88634d1ef6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/a5e1468d321b0595fa36399ce5761f88634d1ef6",
+                "reference": "a5e1468d321b0595fa36399ce5761f88634d1ef6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/filesystem": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Config\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Config Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-12-12 16:23:01"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "2.7.x-dev",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "24f2c9ea9353cbb25dc40786272f0b4f42ba3d3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/24f2c9ea9353cbb25dc40786272f0b4f42ba3d3c",
+                "reference": "24f2c9ea9353cbb25dc40786272f0b4f42ba3d3c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.0,>=2.0.5",
+                "symfony/dependency-injection": "~2.6",
+                "symfony/expression-language": "~2.6",
+                "symfony/stopwatch": "~2.3"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-12-16 20:28:45"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "2.7.x-dev",
+            "target-dir": "Symfony/Component/Filesystem",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "1ff6caf45e7c5aac036b1536a914afbf4b8c6066"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/1ff6caf45e7c5aac036b1536a914afbf4b8c6066",
+                "reference": "1ff6caf45e7c5aac036b1536a914afbf4b8c6066",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-12-12 16:23:01"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "2.7.x-dev",
+            "target-dir": "Symfony/Component/Yaml",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Yaml.git",
+                "reference": "b9c19ce1bd9a51d3f42665973088f2e2b82db240"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b9c19ce1bd9a51d3f42665973088f2e2b82db240",
+                "reference": "b9c19ce1bd9a51d3f42665973088f2e2b82db240",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Yaml\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-12-09 17:32:32"
         }
     ],
     "packages-dev": [],
@@ -226,7 +543,9 @@
     "stability-flags": {
         "filp/whoops": 20,
         "phalcon/incubator": 20,
-        "smarty/smarty": 20
+        "smarty/smarty": 20,
+        "swiftmailer/swiftmailer": 20,
+        "joseph-lenton/php-error": 20
     },
     "prefer-stable": false,
     "platform": {

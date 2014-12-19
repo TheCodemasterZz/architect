@@ -23,7 +23,6 @@ class IndexController extends \Phalcon\Mvc\Controller
     public function notFoundAction()
     {
         // Send a HTTP 404 response header
-        $this->response->setStatusCode(404, "Not Found");
     }
 
     public function onConstruct()
@@ -33,6 +32,7 @@ class IndexController extends \Phalcon\Mvc\Controller
     
     public function indexAction()
     {
+
     	$this->assets
 		    ->addCss('global/css/bootstrap.min.css')
 		    ->addCss('assets/themes/my.theme/css/style.css');

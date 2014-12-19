@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{ get_doctype() }}
 <html lang="en">
 <head>
     <meta charset="utf-8">
