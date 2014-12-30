@@ -11,34 +11,7 @@ namespace Modules\Dashboard\Controllers;
 
 class IndexController extends \Phalcon\Mvc\Controller
 {
-    public $settings;
-
-    public function initialize()
+    public function indexAction($id=0)
     {
-        $this->settings = array(
-            "mySetting" => "value"
-        );
-    }
-
-    public function notFoundAction()
-    {
-        // Send a HTTP 404 response header
-    }
-
-    public function onConstruct()
-    {
-        
-    }
-    
-    public function indexAction()
-    {
-
-    	$this->assets
-		    ->addCss('global/css/bootstrap.min.css')
-		    ->addCss('assets/themes/my.theme/css/style.css');
-
-    	$this->assets
-		    ->addJs('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-		    ->addJs('global/js/bootstrap.min.js');
     }
 }

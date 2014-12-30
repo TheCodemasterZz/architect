@@ -7,13 +7,25 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-# @TODO: i must add getting solution routing configuration.
+/*
+|--------------------------------------------------------------------------
+| Global Functions
+|--------------------------------------------------------------------------
+|
+| i am using some global functions for the framework. 
+|
+| These functions are
+| _if getting the path which is in the enviroment path
+| _dd var_dump the object that is given and die
+| _de echo the string and die
+|
+*/
 
-$applicationFile = "application";
-
-# Global function for file including if exists.
-function _gf($folderName, $fileName) {
-	$file = "{$folderName}" . ENVIRONMENT . "/{$fileName}";
+# Global function for getting included file name
+function _if($folderName, $fileName, $enviroment = null ) {
+	if ( is_null($enviroment) )
+		$enviroment = "ENVIRONMENT";
+	$file = "{$folderName}{$enviroment}/{$fileName}";
     if (!file_exists($file)) {
 		$file = "{$folderName}{$fileName}";
 	    if (!file_exists($file))
@@ -22,37 +34,102 @@ function _gf($folderName, $fileName) {
 	return $file;
 }
 
+# Global function for short var_dump
+function _dd($object) {
+	echo "<pre>";
+	var_dump($object);
+	echo "</pre>";
+	die();
+}
+
+
+# Global function for short echo
+function _de($string) {
+	die($string);
+}
+
+# ROOT PATH is defined.
+define("ROOT_PATH", realpath(__DIR__."/../") );
+
+/*
+|--------------------------------------------------------------------------
+| Solution Config
+|--------------------------------------------------------------------------
+|
+| Get solution config parametrs from config file. This file is one of the 
+| important file for the framework configurations
+|
+*/
+
+$solutionConfig = new \Phalcon\Config(
+    include_once _if(__DIR__."/configs/", "solution.php", "")
+);
+
+// The FactoryDefault Dependency Injector automatically registers the
+// right services providing a full-stack framework
+$di = new \Phalcon\DI\FactoryDefault();
+
+$di->set('solution', function () use ($solutionConfig) {
+    return $solutionConfig;
+});
+
+/*
+|--------------------------------------------------------------------------
+| Solution Routing
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
 if (PHP_SAPI === 'cli') {
-	# @TODO: i will add console application routing
+	$applicationName = $_SERVER['argv'][1];
+	$enviroment = "production";
 } else {
-	$projectName = $_SERVER["SERVER_NAME"];
+	$serverName = $_SERVER['SERVER_NAME'];
+	if ( !isset( $solutionConfig->routing->$serverName->name ) ) {
+		if ( isset( $solutionConfig->routing->default->name ) ) {
+			$applicationName = $solutionConfig->routing->default->name;
+			$enviroment = $solutionConfig->routing->default->enviroment;
+		} else {
+			_de("Solution routing configuration is failed. Please check your configurations");
+		}
+	} else {
+		$applicationName = $solutionConfig->routing->$serverName->name;
+		$enviroment = $solutionConfig->routing->$serverName->enviroment;
+	}
 }	
  
-# @TODO: Until creating routing configuration i set projectName as localhost.
-# @TODO: after creating and getting routing configuration i will delete code below
-$projectName = "my.app";
-
-define("PROJECT_NAME", $projectName );
+define("ENVIRONMENT", $enviroment);
+define("APPLICATION_NAME", $applicationName);
 
 /*
 |--------------------------------------------------------------------------
 | Define Paths
 |--------------------------------------------------------------------------
 |
-| I defined some path which can be called anywhere. Root, Solution, Public,
-| Vendor, Apps and Application path is defined here. I will move 
-| framework path to the vendor when i finish project-bk
+| I defined some path which can be called anywhere. Root, Solution, 
+| Public, | Vendor, Apps and Application path is defined here. 
+| 
 */
 
-define("ROOT_PATH", __DIR__."/../" );
-define("SOLUTION_PATH", ROOT_PATH."solution/" );
-define("STORAGE_PATH", ROOT_PATH."storage/" );
-define("APPLICATION_PATH", SOLUTION_PATH."applications/{$projectName}/" );
-define("PUBLIC_PATH", ROOT_PATH."public_html/" );
-define("VENDOR_PATH", ROOT_PATH."vendor/" );
+define("SOLUTION_PATH", 	$solutionConfig->solution_path );
+define("STORAGE_PATH", 		$solutionConfig->storage_path );
+define("APPLICATION_PATH", 	str_replace("{appName}", APPLICATION_NAME, $solutionConfig->application_path) );
+define("PUBLIC_PATH", 		$solutionConfig->public_path );
+define("VENDOR_PATH", 		$solutionConfig->vendor_path );
 
-if ( !is_file( APPLICATION_PATH."{$applicationFile}.php" ) ) 
-	die("There is no application called \"{$projectName}\" in your apps folder.");
+/*
+|--------------------------------------------------------------------------
+| Check Application Path
+|--------------------------------------------------------------------------
+|
+| I am checking whether there is a application in application path or not
+| 
+*/
+
+if ( !is_file( APPLICATION_PATH."application.php" ) ) 
+	_de("There is no application called \"".APPLICATION_NAME."\" in your apps folder.");
 
 /*
 |--------------------------------------------------------------------------
@@ -77,37 +154,4 @@ require VENDOR_PATH.'autoload.php';
 | you want to develope console application. (command-line application) 
 */
 
-include_once APPLICATION_PATH."{$applicationFile}.php";
-
-return;
-
-$fileContent = file_get_contents(APPLICATION_PATH."{$applicationFile}.php");
-$newFileName = APPLICATION_PATH . "application.compiled.php";
-
-if (!file_exists($newFileName)) {
-
-	$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
-	$regexp = 'return include_once _gf\(([^)>]*?)[,]([, ])\"([^)>]*?)\"\);';
-	if(preg_match_all("/$regexp/siU", $fileContent, $matches)) {
-
-		$i = 0;
-		foreach ($matches[0] as $key => $value) {
-			$matches[1][$i] = str_replace(".", "", $matches[1][$i]);
-			$matches[1][$i] = str_replace("\"", "", $matches[1][$i]);
-			$matches[1][$i] = str_replace("APPLICATION_PATH", APPLICATION_PATH, $matches[1][$i]);
-			$configContent = file_get_contents( _gf($matches[1][$i], $matches[3][$i] ) );
-			$configContent = str_replace("<?php", "", $configContent);
-			$configContent = str_replace("<?", "", $configContent);
-			$configContent = str_replace("?>", "", $configContent);
-			$fileContent = str_replace($matches[0][$i], $configContent, $fileContent);
-
-			$i += 1;
-		}
-	}
-
-	$fh = fopen($newFileName, 'w') or die("can't open file");
-	fwrite($fh, $fileContent);
-	fclose($fh);
-}
-
-include_once APPLICATION_PATH."{$applicationFile}.php";
+include_once APPLICATION_PATH."application.php";

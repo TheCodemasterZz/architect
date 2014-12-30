@@ -13,15 +13,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "filp/whoops": "~1.2@dev",
-        "phalcon/incubator": "dev-master",
-        "smarty/smarty": "~3.1@dev",
-        "swiftmailer/swiftmailer": "~5.3@dev",
-        "joseph-lenton/php-error": "dev-master"
-    },
-    "autoload": {
-         "psr-0": {
-            "Architect": "architect/src/"
-         }
+        "filp/whoops": "~1.2@dev"
     }
 }

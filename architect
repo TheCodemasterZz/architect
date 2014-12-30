@@ -19,4 +19,4 @@
 |
 */
 
-require 'solution/autoload.php';
+require 'vendor/autoload.php';
