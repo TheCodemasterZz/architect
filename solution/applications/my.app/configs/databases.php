@@ -21,26 +21,7 @@ return array(
     |   'password' => '',
     |   'dbname' => 'test',
     |   'persistent' => false
-	| ), 
-	| 'db2' => array(
-    |	'type' => '\Phalcon\Db\Adapter\Pdo\PostgreSQL',
-    |   'host' => 'localhost',
-    |   'username' => 'root',
-    |   'password' => '',
-    |   'dbname' => 'test',
-    |   'persistent' => false
 	| )
-	| 
-	| Also in your model you can set which database you want to use with adding 
-	| initialize method.
-	|
-	| public function initialize()
-    | {
-    |	//$this->setConnectionService('db2');
-    |   $this->setReadConnectionService('db1');
-    |	$this->setWriteConnectionService('db2');
-    | }
-	|
 	|
 	*/
 
@@ -50,7 +31,7 @@ return array(
 		'port' => 3306,
         'username' => 'root',
         'password' => '',
-        'dbname' => 'test',
+        'dbname' => 'phalcon',
         'persistent' => false
 	)
 );

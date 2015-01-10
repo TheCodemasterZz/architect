@@ -12,7 +12,7 @@
     {{ assets.outputCss() }}
     <style>
         .header {
-            background: url('assets/themes/{{ application.theme_name }}/img/bg.png') no-repeat center center scroll;
+            background: url('/assets/themes/{{ application.theme_name }}/img/bg.png') no-repeat center center scroll;
         }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

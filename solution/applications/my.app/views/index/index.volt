@@ -1,4 +1,4 @@
-{% extends "../../../resources/views/_layout.volt" %}
+{% extends "_layout.volt" %}
 
 {% block content %}
 

@@ -287,6 +287,7 @@ try {
 
     $di->set('view', function() use ($viewConfigs){
         $view = new \Phalcon\Mvc\View();
+        $view->setViewsDir(APPLICATION_PATH."views/");
         $viewEngines = $viewConfigs->view_engines;
         foreach ($viewEngines as $extension => $parameters) {
             $view->registerEngines(array(

@@ -47,8 +47,8 @@ return array(
 	|
 	*/
 
-	'default_namespace' 	=> 'Modules\Dashboard\Controllers',
-	'default_module' 		=> 'dashboard',
+	'default_namespace' 	=> '',
+	'default_module' 		=> '',
 	'default_controller' 	=> 'index',
 	'default_action' 		=> 'index',
 
@@ -202,7 +202,10 @@ return array(
 	|
 	*/
 
-	'paths' => array(),
+	'paths' => array(
+		APPLICATION_PATH . 'controllers/',
+        APPLICATION_PATH . 'models/'
+    ),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -244,15 +247,12 @@ return array(
 	| Example Usage:
 	|
 	| array(
-	| 	'Modules\Dashboard\Controllers' => APPLICATION_PATH.'modules/dashboard/controllers/',
-	| 	'Modules\Dashboard\Models' => APPLICATION_PATH.'modules/dashboard/models/'
+	| 	'Example\Base' => "vendor/example/base/"
 	| )  
 	|
 	*/
 
 	'namespaces' => array(
-	    'Modules\Dashboard\Controllers' => APPLICATION_PATH.'modules/dashboard/controllers/',
-	    'Modules\Dashboard\Models' => APPLICATION_PATH.'modules/dashboard/models/'
 	),
 
 	/*
@@ -295,7 +295,7 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Module Registration
+	| Module Registration : SOON
 	|--------------------------------------------------------------------------
 	|
 	| Module registration is used for setting all installed modules.
@@ -311,10 +311,5 @@ return array(
 	|
 	*/
 
-	'modules' => array(
-		'dashboard' => array(
-			'className' => 'Modules\Dashboard\Module',
-			'path' => APPLICATION_PATH . 'modules/dashboard/Module.php'
-		)
-	)
+	'modules' => array()
 );

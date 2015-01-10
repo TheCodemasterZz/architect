@@ -7,11 +7,11 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-namespace Modules\Dashboard\Controllers;
+use Phalcon\Mvc\Controller;
 
 class IndexController extends \Phalcon\Mvc\Controller
 {
-    public function indexAction($id=0)
+    public function indexAction()
     {
     }
 }
