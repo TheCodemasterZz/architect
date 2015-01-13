@@ -62,7 +62,7 @@ define("ROOT_PATH", realpath(__DIR__."/../") );
 */
 
 $solutionConfig = new \Phalcon\Config(
-    include_once _if(__DIR__."/configs/", "solution.php", "")
+    include_once _if(__DIR__."/", "applications/solution.php", "")
 );
 
 // The FactoryDefault Dependency Injector automatically registers the

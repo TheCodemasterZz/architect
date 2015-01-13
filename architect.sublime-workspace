@@ -291,22 +291,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/SVN/sanal-pos/application/config/database.php",
-			"settings":
-			{
-				"buffer_size": 3926,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "LICENSE",
-			"settings":
-			{
-				"buffer_size": 1083,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -406,10 +390,22 @@
 	},
 	"expanded_folders":
 	[
-		"/D/bitbucket/architect"
+		"/D/bitbucket/architect",
+		"/D/bitbucket/architect/solution",
+		"/D/bitbucket/architect/solution/applications",
+		"/D/bitbucket/architect/solution/applications/my.app",
+		"/D/bitbucket/architect/solution/applications/my.app/configs",
+		"/D/bitbucket/architect/solution/applications/my.app/controllers",
+		"/D/bitbucket/architect/solution/applications/my.app/models"
 	],
 	"file_history":
 	[
+		"/D/bitbucket/architect/solution/configs/solution.php",
+		"/D/SVN/sanal-pos/application/config/database.php",
+		"/D/bitbucket/architect/solution/applications/my.app/controllers/RefCitiesController.php",
+		"/D/bitbucket/architect/solution/applications/my.app/models/RefCities.php",
+		"/D/bitbucket/architect/solution/applications/my.app/models/Users.php",
+		"/D/bitbucket/architect/public_html/index.php",
 		"/D/SVN/sanal-pos/application/config/config.php",
 		"/D/SVN/sanal-pos/application/controllers/mevcut_musteri.php",
 		"/C/Users/baris.kalaycioglu/AppData/Roaming/Apple Computer/MobileSync/Backup/a94c3bdd66fcb02d509d2abc058daf9cafc666dd/0b18a5dc3ac7038e8ebc19223a394e139817ff4a",
@@ -441,7 +437,6 @@
 		"/D/bitbucket/architect/solution/applications/my.app/configs/views.php",
 		"/D/SVN/sanal-pos/application/controllers/odeme.php",
 		"/D/bk-project/TKBS.gen/efdatalayer.php",
-		"/D/SVN/sanal-pos/application/config/database.php",
 		"/D/SVN/sanal-pos/index.php",
 		"/D/bitbucket/architect/solution/applications/my.app/configs/application.php",
 		"/D/bitbucket/architect/solution/applications/my.app/modules/dashboard/views/index/index.volt",
@@ -457,7 +452,6 @@
 		"/D/bitbucket/architect/solution/applications/my.app/services/sessions.php",
 		"/D/bitbucket/architect/solution/applications/my.app/services/security.php",
 		"/D/bitbucket/architect/solution/autoload.php",
-		"/D/bitbucket/architect/solution/configs/solution.php",
 		"/D/bitbucket/architect/solution/applications/my.app/services/validations.php",
 		"/D/bitbucket/architect/solution/applications/my.app/services/url.php",
 		"/D/bitbucket/architect/solution/applications/my.app/services/crypt.php",
@@ -477,7 +471,6 @@
 		"/D/bitbucket/architect/solution/applications/my.console/tasks/MainTask.php",
 		"/D/bitbucket/architect/solution/applications/my.console/tasks/MyTask.php",
 		"/D/bitbucket/architect/solution/applications/my.console/application.php",
-		"/D/bitbucket/architect/public_html/index.php",
 		"/D/bitbucket/architect/solution/applications/my.app/configs/services.php",
 		"/D/bitbucket/architect/solution/applications/my.app/services/filter.php",
 		"/D/bitbucket/architect/solution/applications/my.app/services/cache.php",
@@ -534,10 +527,7 @@
 		"/D/bitbucket/architect/solution/applications/my.app/configs/consoleRoutes.php",
 		"/D/bitbucket/architect/solution/applications/my.app/modules/dashboard/controllers/MainTask.php",
 		"/D/bitbucket/architect/cli",
-		"/D/bitbucket/architect/cli.php",
-		"/D/bitbucket/architect/solution/applications/my.app/modules/ModuleController.php",
-		"/D/bitbucket/architect/solution/applications/my.app/modules/dashboard/BaseController.php",
-		"/D/bitbucket/architect/solution/applications/my.app/resources/layouts/_footer.volt"
+		"/D/bitbucket/architect/cli.php"
 	],
 	"find":
 	{
@@ -949,65 +939,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/SVN/sanal-pos/application/config/database.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3926,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1366,
-								1446
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "LICENSE",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1083,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
