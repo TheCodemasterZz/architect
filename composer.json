@@ -1,6 +1,6 @@
 {
     "name": "architect/architect",
-    "description": "architect - a PHP Framework for rapid developing",
+    "description": "architect - Rapid Development Tool Powered By Phalcon",
     "keywords": ["architect", "framework", "php", "phalcon"],
     "type": "project",
     "license": "MIT",
