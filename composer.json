@@ -13,6 +13,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "filp/whoops": "~1.2@dev"
+        "filp/whoops": "~1.2@dev",
+        "phalcon/devtools": "dev-master"
     }
 }

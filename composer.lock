@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7b0048d8c045929732cf78fecd905ea9",
+    "hash": "b8512a856518921ab517525c755caeac",
     "packages": [
         {
             "name": "filp/whoops",
@@ -63,15 +63,61 @@
                 "zf2"
             ],
             "time": "2014-11-29 09:19:11"
+        },
+        {
+            "name": "phalcon/devtools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phalcon/phalcon-devtools.git",
+                "reference": "8834e10249a371a2e4417b38481f88219d842c23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/8834e10249a371a2e4417b38481f88219d842c23",
+                "reference": "8834e10249a371a2e4417b38481f88219d842c23",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.6"
+            },
+            "bin": [
+                "phalcon.php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Phalcon": "scripts/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Phalcon Team",
+                    "email": "team@phalconphp.com"
+                }
+            ],
+            "description": "This tools provide you useful scripts to generate code helping to develop faster and easy applications that use with Phalcon framework.",
+            "homepage": "http://phalconphp.com",
+            "keywords": [
+                "framework",
+                "phalcon"
+            ],
+            "time": "2015-01-26 21:59:18"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "filp/whoops": 20
+        "filp/whoops": 20,
+        "phalcon/devtools": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

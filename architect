@@ -19,4 +19,4 @@
 |
 */
 
-require 'vendor/autoload.php';
+require 'vendor/phalcon/devtools/phalcon.php';
