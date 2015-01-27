@@ -8,5 +8,6 @@
  */
  
 return array(
-    "hi" => "Hello"
+    "architectName" => "Architect";
+    "architectInfo" => "Rapid Development Tool Powered By Phalcon";
 );

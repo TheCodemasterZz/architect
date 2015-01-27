@@ -292,9 +292,9 @@ try {
         foreach ($viewEngines as $extension => $parameters) {
             $view->registerEngines(array(
                 $extension => function($view, $di) use ($parameters) {
-                    $volt = new $parameters->type($view, $di);
-                    $volt->setOptions($parameters->options->toArray());
-                    return $volt;
+                    $viewExtension = new $parameters->type($view, $di);
+                    $viewExtension->setOptions($parameters->options->toArray());
+                    return $viewExtension;
                 }
             ));
         }
