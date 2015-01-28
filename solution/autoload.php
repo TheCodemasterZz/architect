@@ -7,19 +7,9 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-/*
-|--------------------------------------------------------------------------
-| Global Functions
-|--------------------------------------------------------------------------
-|
-| i am using some global functions for the framework. 
-|
-| These functions are
-| _if getting the path which is in the enviroment path
-| _dd var_dump the object that is given and die
-| _de echo the string and die
-|
-*/
+if (!extension_loaded('phalcon')) {
+    throw new Exception('Phalcon extension isn\'t installed, follow these instructions to install it: http://docs.phalconphp.com/en/latest/reference/install.html');
+}
 
 # Global function for getting included file name
 function _if($folderName, $fileName, $enviroment = null ) {
@@ -62,7 +52,7 @@ define("ROOT_PATH", realpath(__DIR__."/../") );
 */
 
 $solutionConfig = new \Phalcon\Config(
-    include_once _if(__DIR__."/", "configs.php", "")
+    include_once _if(__DIR__."/", "solutions.php", "")
 );
 
 // The FactoryDefault Dependency Injector automatically registers the
