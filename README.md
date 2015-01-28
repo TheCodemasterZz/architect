@@ -1,4 +1,4 @@
 architect
 =========
 
-architect - a PHP Framework for rapid developing
+architect - Rapid Development Tool Powered By Phalcon
