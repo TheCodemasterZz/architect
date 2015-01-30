@@ -7,10 +7,6 @@
  * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-if (!extension_loaded('phalcon')) {
-    throw new Exception('Phalcon extension isn\'t installed, follow these instructions to install it: http://docs.phalconphp.com/en/latest/reference/install.html');
-}
-
 # Global function for getting included file name
 function _if($folderName, $fileName, $enviroment = null ) {
 	if ( is_null($enviroment) )
@@ -36,6 +32,10 @@ function _dd($object) {
 # Global function for short echo
 function _de($string) {
 	die($string);
+}
+
+if (!extension_loaded('phalcon')) {
+    _de('Phalcon extension isn\'t installed, follow these instructions to install it: http://docs.phalconphp.com/en/latest/reference/install.html');
 }
 
 # ROOT PATH is defined.
@@ -131,6 +131,10 @@ if ( !is_file( APPLICATION_PATH."application.php" ) )
 | into the script here so that we do not have to worry about the
 | loading of any our classes "manually". Feels great to relax.
 */
+
+if (!file_exists(VENDOR_PATH.'autoload.php')) {
+	_de("Please run composer update to get files in vendor folder");
+}
 
 require VENDOR_PATH.'autoload.php';
 
