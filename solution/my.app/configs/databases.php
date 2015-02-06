@@ -26,12 +26,13 @@ return array(
 	*/
 
 	'db' => array(
-        'type' => '\Phalcon\Db\Adapter\Pdo\Mysql',
-        'host' => 'localhost',
-		'port' => 3306,
-        'username' => 'root',
-        'password' => '',
-        'dbname' => 'phalcon',
-        'persistent' => false
+        'type' => '\Phalcon\Db\Adapter\Pdo\Postgresql',
+        'config' => array (
+        	'host' => 'localhost',
+			'port' => 5432,
+	        'username' => 'postgres',
+	        'password' => '123456',
+	        'dbname' => 'isg-sistemi'
+	    )
 	)
 );

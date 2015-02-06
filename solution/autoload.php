@@ -57,24 +57,34 @@ $solutionConfig = new \Phalcon\Config(
 
 // The FactoryDefault Dependency Injector automatically registers the
 // right services providing a full-stack framework
-$di = new \Phalcon\DI\FactoryDefault();
+if (PHP_SAPI === 'cli') 
+	$di = new \Phalcon\DI\FactoryDefault\CLI();
+else
+	$di = new \Phalcon\DI\FactoryDefault();
 
 $di->set('solution', function () use ($solutionConfig) {
     return $solutionConfig;
 });
 
-/*
-|--------------------------------------------------------------------------
-| Solution Routing
-|--------------------------------------------------------------------------
-|
-| 
-|
-*/
-
+// Solution Routing
 if (PHP_SAPI === 'cli') {
-	$applicationName = $_SERVER['argv'][1];
-	$enviroment = "production";
+
+	$applicationName = "no-cli-app-name";
+	if ( isset($argv[1]) )
+		$applicationName = $argv[1];
+
+	if ( !isset( $solutionConfig->routing->$applicationName->name ) ) {
+		if ( isset( $solutionConfig->routing->default->name ) ) {
+			$applicationName = $solutionConfig->routing->default->name;
+			$enviroment = $solutionConfig->routing->default->enviroment;
+		} else {
+			_de("Solution routing configuration is failed. Please check your configurations");
+		}
+	} else {
+		$applicationName = $solutionConfig->routing->$applicationName->name;
+		$enviroment = $solutionConfig->routing->$applicationName->enviroment;
+	}
+	$appType = "console";
 } else {
 	$serverName = $_SERVER['SERVER_NAME'];
 	if ( !isset( $solutionConfig->routing->$serverName->name ) ) {
@@ -88,6 +98,7 @@ if (PHP_SAPI === 'cli') {
 		$applicationName = $solutionConfig->routing->$serverName->name;
 		$enviroment = $solutionConfig->routing->$serverName->enviroment;
 	}
+	$appType = "mvc";
 }	
  
 define("ENVIRONMENT", $enviroment);
@@ -119,7 +130,7 @@ define("VENDOR_PATH", 		$solutionConfig->vendor_path );
 */
 
 if ( !is_file( APPLICATION_PATH."application.php" ) ) 
-	_de("There is no application called \"".APPLICATION_NAME."\" in your apps folder.");
+	_de("There is no application file called \"".APPLICATION_NAME."\" in your apps folder.");
 
 /*
 |--------------------------------------------------------------------------

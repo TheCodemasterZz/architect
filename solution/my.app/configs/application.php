@@ -32,7 +32,8 @@ return array(
 	| Default Language
 	|--------------------------------------------------------------------------
 	|
-	| 
+	| Apllication is working with the language files which is in the folder
+	| that you can set with this variable. 
 	|
 	*/
 
@@ -204,7 +205,8 @@ return array(
 
 	'paths' => array(
 		APPLICATION_PATH . 'controllers/',
-        APPLICATION_PATH . 'models/'
+        APPLICATION_PATH . 'models/',
+        APPLICATION_PATH . 'tasks/'
     ),
 
 	/*

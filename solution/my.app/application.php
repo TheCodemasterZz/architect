@@ -10,8 +10,14 @@
 
 try {
 
+    define('VERSION', '1.0.0');
+
     //Create an Application
-    $application = new \Phalcon\Mvc\Application($di);
+    if (PHP_SAPI === 'cli') {
+        $application = new \Phalcon\CLI\Console($di);
+    } else {
+        $application = new \Phalcon\Mvc\Application($di);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -72,11 +78,10 @@ try {
     */
 
     $di->set('error', function () use ($appConfig) {
-        return include_once _if(APPLICATION_PATH."services/", "error.php");
-    });
-
-    //Run error handler
-    $application->error;
+        return include_once _if(APPLICATION_PATH."configs/", "error.php");
+    });	
+    
+    $error = $di['error'];
 
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +104,7 @@ try {
     });
 
     //Run session handler
-    $application->session;
+    $session = $di['session'];
 
     /*
     |--------------------------------------------------------------------------
@@ -123,7 +128,7 @@ try {
     foreach ($dbConfigs as $name => $dbConfig ) {
         $di->set($name, function() use ($dbConfig){
             $className = $dbConfig["type"];
-            $database =  new $className($dbConfig->toArray());
+            $database =  new $className($dbConfig["config"]->toArray());
             $database->connect();
             return $database;
         });
@@ -201,13 +206,15 @@ try {
     |
     */
 
-    $di->set('url', function () use ($appConfig) {
-        $url = new \Phalcon\Mvc\Url();
-        if (!is_null($appConfig->base_url))
-            $url->setBaseUri($appConfig->base_url);
-        return $url;
-    }, true);
-
+    if (PHP_SAPI !== 'cli') 
+    {
+        $di->set('url', function () use ($appConfig) {
+            $url = new \Phalcon\Mvc\Url();
+            if (!is_null($appConfig->base_url))
+                $url->setBaseUri($appConfig->base_url);
+            return $url;
+        }, true);
+    }
     /*
     |--------------------------------------------------------------------------
     | Crypt Service
@@ -248,20 +255,14 @@ try {
     }, true);
 
     //Registering the translate component
+    //TODO: there can be many file in en folder.
     $di->set('language', function() use ($appConfig) {
-        $language = "tr"; //TODO: HOW TO GET THIS FROM WHERE?
-        $fileName = APPLICATION_PATH.'resources/languages/'.$language.".php";
+        $defaultLanguage = $appConfig->default_language;
+        $fileName = APPLICATION_PATH."resources/languages/{$defaultLanguage}/{$defaultLanguage}.php";;        
         if (file_exists($fileName)) {
             $messages = include_once $fileName;
-        }
-        else {
-            $defaultLanguage = $appConfig->default_language;
-            $fileName = APPLICATION_PATH.'resources/languages/'.$defaultLanguage.".php";        
-            if (file_exists($fileName)) {
-                $messages = include_once $fileName;
-            } else {
-                $messages = array();
-            }
+        } else {
+            $messages = array();
         }
         return new \Phalcon\Translate\Adapter\NativeArray(array(
             "content" => $messages
@@ -285,48 +286,54 @@ try {
         include_once _if(APPLICATION_PATH."configs/", "views.php")
     );
 
-    $di->set('view', function() use ($viewConfigs){
-        $view = new \Phalcon\Mvc\View();
-        $view->setViewsDir(APPLICATION_PATH."views/");
-        $viewEngines = $viewConfigs->view_engines;
-        foreach ($viewEngines as $extension => $parameters) {
-            $view->registerEngines(array(
-                $extension => function($view, $di) use ($parameters) {
-                    $viewExtension = new $parameters->type($view, $di);
-                    $viewExtension->setOptions($parameters->options->toArray());
-                    return $viewExtension;
-                }
+    if (PHP_SAPI !== 'cli') 
+    {
+        $di->set('view', function() use ($viewConfigs){
+            $view = new \Phalcon\Mvc\View();
+            $view->setViewsDir(APPLICATION_PATH."views/");
+            $viewEngines = $viewConfigs->view_engines;
+            foreach ($viewEngines as $extension => $parameters) {
+                $view->registerEngines(array(
+                    $extension => function($view, $di) use ($parameters) {
+                        $viewExtension = new $parameters->type($view, $di);
+                        $viewExtension->setOptions($parameters->options->toArray());
+                        return $viewExtension;
+                    }
+                ));
+            }
+            return $view;
+        });
+    }
+
+    if (PHP_SAPI !== 'cli') 
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Router Service
+        |--------------------------------------------------------------------------
+        |
+        | The router component allows defining routes that are mapped to 
+        | controllers or handlers that should receive the request. A router simply 
+        | parses a URI to determine this information. The router has two modes: 
+        | MVC mode and match-only mode. The first mode is ideal for working with 
+        | MVC applications.
+        |
+        */
+
+        $di->set('router', function () use ($appConfig) {
+            $router = new \Phalcon\Mvc\Router\Annotations(false);
+            $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_GET_URL); 
+            $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
+            $router->setDefaults(array(
+                'namespace'     => $appConfig->default_namespace,
+                'module'        => $appConfig->default_module,
+                'controller'    => $appConfig->default_controller,
+                'action'        => $appConfig->default_action
             ));
-        }
-        return $view;
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Router Service
-    |--------------------------------------------------------------------------
-    |
-    | The router component allows defining routes that are mapped to 
-    | controllers or handlers that should receive the request. A router simply 
-    | parses a URI to determine this information. The router has two modes: 
-    | MVC mode and match-only mode. The first mode is ideal for working with 
-    | MVC applications.
-    |
-    */
-
-    $di->set('router', function () use ($appConfig) {
-        $router = new \Phalcon\Mvc\Router\Annotations(false);
-        $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_GET_URL); 
-        $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
-        $router->setDefaults(array(
-            'namespace'     => $appConfig->default_namespace,
-            'module'        => $appConfig->default_module,
-            'controller'    => $appConfig->default_controller,
-            'action'        => $appConfig->default_action
-        ));
-        $router->removeExtraSlashes($appConfig->extra_slashes);
-        return include_once _if(APPLICATION_PATH."configs/", "routing.php");
-    });
+            $router->removeExtraSlashes($appConfig->extra_slashes);
+            return include_once _if(APPLICATION_PATH."configs/", "routing.php");
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -385,20 +392,45 @@ try {
         $appConfig->modules->toArray()
     );
 
-    //Handle the request
-    $output = $application->handle()->getContent();
+    if (PHP_SAPI === 'cli') 
+    {
+        $arguments = array();
 
-    // HTML Minification
-    if ( $appConfig->html_minify ) {
-        ob_start( function() use ($output) {
-            $search = array( '/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s' );
-            $replace = array( '>', '<', '\\1' );
-            $buffer = preg_replace($search, $replace, $output);
-            return $buffer;
-        });
+        $arguments['task'] = "main";
+        $arguments['action'] = "main";
+        $arguments['params'] = array();
+
+        foreach($argv as $k => $arg) {
+            if($k == 2) {
+                $arguments['task'] = $arg;
+            } elseif($k == 3) {
+                $arguments['action'] = $arg;
+            } elseif($k >= 4) {
+                $arguments['params'][] = $arg;
+            }
+        }
+
+        
+        // handle incoming arguments
+        $application->handle($arguments); 
+    } 
+    else 
+    {
+        //Handle the request
+        $output = $application->handle()->getContent();
+
+        // HTML Minification
+        if ( $appConfig->html_minify ) {
+            ob_start( function() use ($output) {
+                $search = array( '/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s' );
+                $replace = array( '>', '<', '\\1' );
+                $buffer = preg_replace($search, $replace, $output);
+                return $buffer;
+            });
+        }
+
+        echo $output;
     }
-
-    echo $output;
 
 } catch(Exception $e) {
     throw new Exception($e->getMessage());    

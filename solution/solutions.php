@@ -25,7 +25,7 @@ return array(
 	'routing' => array(
 		"default" => array(
 			"name" 			=> "my.app",
-			"enviroment" 	=> "production"
+            "enviroment"    => "production"
 		)
 	),
 
