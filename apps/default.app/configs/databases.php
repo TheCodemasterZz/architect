@@ -14,13 +14,13 @@ return array(
 	| changing config array key like this one : 
 	|
 	| 'db1' => array(
-    |	'type' => '\Phalcon\Db\Adapter\Pdo\Mysql',
-    |   'host' => 'localhost',
+	|	'type' => '\Phalcon\Db\Adapter\Pdo\Mysql',
+	|   'host' => 'localhost',
 	|	'port' => 3306,
-    |   'username' => 'root',
-    |   'password' => '',
-    |   'dbname' => 'test',
-    |   'persistent' => false
+	|   'username' => 'root',
+	|   'password' => '',
+	|   'dbname' => 'test',
+	|   'persistent' => false
 	| )
 	|
 	*/
