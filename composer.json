@@ -13,8 +13,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.0",
-        "filp/whoops": "~1.2@dev",
-        "architect/tools": "dev-master",
-        "symfony/console": "~3.0@dev"
+        "filp/whoops": "~1.2@dev"
     }
 }
