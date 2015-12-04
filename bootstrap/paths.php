@@ -30,19 +30,6 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Application Path
-    |--------------------------------------------------------------------------
-    |
-    | Container of the application files is setting as application path. You
-    | can set application path in this config by changing application_path
-    | variable.
-    |
-    */
-
-	'application_path' => ROOT_PATH."/apps/{appName}/",
-
-    /*
-    |--------------------------------------------------------------------------
     | Public Path
     |--------------------------------------------------------------------------
     |
@@ -51,7 +38,7 @@ return array(
     |
     */
 
-	'public_path' => ROOT_PATH."/public_html/",
+	'public_path' => ROOT_PATH."/public/",
 
     /*
     |--------------------------------------------------------------------------
