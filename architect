@@ -1,0 +1,5 @@
+clean storages -view
+clean storages -session
+clean storages -cache
+clean storages -logs
+clean storages -all

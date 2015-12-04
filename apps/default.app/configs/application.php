@@ -16,16 +16,16 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Theme Name
+	| Layout Name
 	|--------------------------------------------------------------------------
 	|
-	| Theme name is default theme which is used by this application. Because 
+	| Layout name is default layout which is used by this application. Because 
 	| of being many application assets which are unique for this application
-	| must be put in the theme folder.
+	| must be put in the layout folder.
 	|
 	*/
 
-	'theme_name' => "my.theme",
+	'layout_name' => "default",
 
 	/*
 	|--------------------------------------------------------------------------

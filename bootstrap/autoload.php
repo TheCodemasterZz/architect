@@ -88,7 +88,7 @@ define("APPLICATION_NAME", $applicationName);
 
 define("SOLUTION_PATH", 	$pathConfigs->solution_path );
 define("STORAGE_PATH", 		$pathConfigs->storage_path );
-define("APPLICATION_PATH", 	str_replace("{appName}", APPLICATION_NAME, $pathConfigs->application_path) );
+define("APPLICATION_PATH", 	$pathConfigs->solution_path.APPLICATION_NAME."/" );
 define("PUBLIC_PATH", 		$pathConfigs->public_path );
 define("VENDOR_PATH", 		$pathConfigs->vendor_path );
 
@@ -115,7 +115,11 @@ if ( !is_file( APPLICATION_PATH."application.php" ) )
 | loading of any our classes "manually". Feels great to relax.
 */
 
-require VENDOR_PATH.'autoload.php';
+if ( !is_file( VENDOR_PATH.'autoload.php' ) ) {
+	_d("There is no autoload.php in your \"".VENDOR_PATH."\". Please update your vendor folder.");
+} else {
+	require VENDOR_PATH.'autoload.php';
+}
 
 /*
 |--------------------------------------------------------------------------

@@ -1,18 +1,18 @@
-{{ get_doctype() }}
+<?php echo $this->tag->getDoctype(); ?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ application.name }}</title>
+    <title><?php echo $this->application->name; ?></title>
     <!-- Global CSS -->
     <link rel="stylesheet" type="text/css" href="/global/plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/layouts/{{ application.layout_name }}/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/layouts/<?php echo $this->application->layout_name; ?>/css/style.css" />
     <!-- Page Level CSS -->
-    {{ assets.outputCss() }}
+    <?php echo $this->assets->outputCss(); ?>
     <style>
         .header {
-            background: url('/assets/layouts/{{ application.layout_name }}/img/bg.png') no-repeat center center scroll;
+            background: url('/assets/layouts/<?php echo $this->application->layout_name; ?>/img/bg.png') no-repeat center center scroll;
         }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,13 +25,20 @@
 <body>
     <!-- Header -->
     <header id="top" class="header">    
-    {% block content %}{% endblock %}
+    
+
+<div class="text-vertical-center">
+    <h1>Architect</h1>
+    <h3>Rapid Development Tool Powered By Phalcon</h3>
+</div>
+
+
     </header>
-    {{ assets.outputJs() }}    
+    <?php echo $this->assets->outputJs(); ?>    
     <!-- Global JS -->
     <script type="text/javascript" src="///ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="/global/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- Page Level JS -->
-    {{ assets.outputJs() }}
+    <?php echo $this->assets->outputJs(); ?>
 </body>
 </html>
