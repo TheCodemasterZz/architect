@@ -94,8 +94,8 @@ $error = $di['error'];
 |
 */
 
-$di->set('session', function() {
-    $session = new \Phalcon\Session\Adapter\Files();
+$di->set('session', function() use ($appConfig) {
+    $session = new $appConfig->libraries->session();
     $session->start();
     return $session;
 });
