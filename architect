@@ -1,5 +1,19 @@
-clean storages -view
-clean storages -session
-clean storages -cache
-clean storages -logs
-clean storages -all
+<?php
+
+/**
+ * architect - a PHP Framework for rapid developing
+ *
+ * @package 	architect
+ * @author 		Baris Kalaycioglu <thecodemasterzz@gmail.com>
+ */
+
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+require __DIR__.'/bootstrap/autoload.php';
