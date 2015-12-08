@@ -7,11 +7,10 @@
 * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
 */
 
-use \Phalcon\Mvc\Controller;
-
-class IndexController extends Controller
+class IndexController extends \Phalcon\Mvc\Controller 
 {
-    public function indexAction()
-    {
+    public function indexAction() 
+    {	
+       
     }
 }
