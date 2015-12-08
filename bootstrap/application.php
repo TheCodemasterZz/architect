@@ -82,6 +82,42 @@ $error = $di['error'];
 
 /*
 |--------------------------------------------------------------------------
+| Profiller Service
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+if (PHP_SAPI !== 'cli') 
+{
+    $di->set('profiler', function () use ($profiler) {
+        return $profiler;
+    }); 
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Profiller Logger Service
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+if (PHP_SAPI !== 'cli') 
+{
+    $di->set('console', function () use ($di) {
+        $profiler = $di->get("profiler");
+        $logger = new \Fabfuel\Prophiler\Adapter\Psr\Log\Logger($profiler);
+        return $logger;
+    });
+}
+
+/*
+|--------------------------------------------------------------------------
 | Session Service
 |--------------------------------------------------------------------------
 |
@@ -123,9 +159,12 @@ $dbConfigs = new \Phalcon\Config(
 
 //Setup the database service
 foreach ($dbConfigs as $name => $dbConfig ) {
-    $di->set($name, function() use ($dbConfig){
+    $di->set($name, function() use ($dbConfig, $di){
         $className = $dbConfig["type"];
         $database =  new $className($dbConfig["config"]->toArray());
+        $eventsManager = new \Phalcon\Events\Manager();
+        $eventsManager->attach('db', \Fabfuel\Prophiler\Plugin\Phalcon\Db\AdapterPlugin::getInstance( $di->get("profiler") ));
+        $database->setEventsManager($eventsManager);
         $database->connect();
         return $database;
     });
@@ -155,6 +194,7 @@ $di->set('cookies', function() use ($appConfig) {
 $di->set('cache', function(){
     return include_once _if(APPLICATION_PATH."services/", "cache.php");
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -424,29 +464,42 @@ $application->registerModules(
 if (PHP_SAPI === 'cli') 
 {
     $arguments = array();
+    if ( isset( $_SERVER['argv'][1] ) AND strpos($argv[1], "@") !== FALSE  ) {
+        $itemNumber = 0;
+        $allArguments = explode("@", $argv[1]);
+        if ( count($allArguments) === 2 )
+        {
+            $itemNumber = 1;
+        }
+        $taskArguments = explode(":", $allArguments[$itemNumber]);
+        $arguments['task'] = $taskArguments[0];
+        $arguments['action'] = $taskArguments[1];
+    }
 
-    $arguments['task'] = "main";
-    $arguments['action'] = "main";
     $arguments['params'] = array();
 
-    foreach($argv as $k => $arg) {
-        if($k == 2) {
-            $arguments['task'] = $arg;
-        } elseif($k == 3) {
-            $arguments['action'] = $arg;
-        } elseif($k >= 4) {
+    foreach($_SERVER['argv'] as $k => $arg) {
+        if($k >= 2) {
             $arguments['params'][] = $arg;
         }
     }
 
-    
     // handle incoming arguments
     $application->handle($arguments); 
 } 
 else 
 {
+
     //Handle the request
     $output = $application->handle()->getContent();
+
+    if ( $appConfig->debug ) 
+    {
+        $toolbar = new \Fabfuel\Prophiler\Toolbar($profiler);
+        $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
+        $toolbar->addDataCollector(new \Orders);
+        echo $toolbar->render();
+    }
 
     // HTML Minification
     if ( $appConfig->html_minify ) {
@@ -458,5 +511,7 @@ else
         });
     }
 
+
     echo $output;
+
 }

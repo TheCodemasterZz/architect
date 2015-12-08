@@ -43,8 +43,11 @@ if (!extension_loaded('phalcon')) {
 define("ROOT_PATH", realpath( __DIR__."/../") );
 
 # The FactoryDefault Dependency Injector automatically registers the right services providing a full-stack framework
-$di = new \Phalcon\DI\FactoryDefault();
-
+if (PHP_SAPI === 'cli') {
+	$di = new \Phalcon\DI\FactoryDefault\CLI();
+} else {
+	$di = new \Phalcon\DI\FactoryDefault();
+}
 
 $pathConfigs = new \Phalcon\Config(
     include_once _if(__DIR__."/", "paths.php", "")
@@ -59,21 +62,28 @@ $applicationRouting = new \Phalcon\Config(
     include_once _if(__DIR__."/", "route.php", "")
 );
 
-if (PHP_SAPI === 'cli') {
-	$applicationName = $_SERVER['argv'][1];
-} else {
-	$serverName = $_SERVER['SERVER_NAME'];
-	if ( !isset( $applicationRouting->routing->$serverName->name ) ) {
-		if ( isset( $applicationRouting->routing->default->name ) ) {
-			$applicationName = $applicationRouting->routing->default->name;
-		} else {
-			_d("Solution routing configuration is failed. Please check your application route configurations");
-		}
-	} else {
-		$applicationName = $applicationRouting->routing->$serverName->name;
+$configurationName = null;
+if (PHP_SAPI === 'cli') {    
+	if ( isset( $_SERVER['argv'][1] ) AND strpos($argv[1], "@") !== FALSE  ) {
+		$arguments = explode("@", $argv[1]);
+		$configurationName = $arguments[0];
 	}
-}	
- 
+} else {
+	if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+		$configurationName = $_SERVER['SERVER_NAME'];
+	}
+}
+
+if ( !isset($applicationRouting->routing->$configurationName->name) ) {
+	if ( isset( $applicationRouting->routing->default->name ) ) {
+		$applicationName = $applicationRouting->routing->default->name;
+	} else {
+		_d("Solution routing configuration is failed. Please check your application route configurations");
+	}
+} else {
+	$applicationName = $applicationRouting->routing->$configurationName->name;
+}
+
 define("APPLICATION_NAME", $applicationName);
 
 /*
@@ -101,7 +111,7 @@ define("VENDOR_PATH", 		$pathConfigs->vendor_path );
 | 
 */
 
-if ( !is_file( APPLICATION_PATH."application.php" ) ) 
+if ( !is_dir( APPLICATION_PATH ) ) 
 	_d("There is no application called \"".APPLICATION_NAME."\" in your apps folder.");
 
 /*
@@ -123,6 +133,31 @@ if ( !is_file( VENDOR_PATH.'autoload.php' ) ) {
 
 /*
 |--------------------------------------------------------------------------
+| Profiller
+|--------------------------------------------------------------------------
+|
+| Generally it makes sense to initialize the profiler as soon as possible, 
+| to measure as much execution time as you can. You should initialize the 
+| profiler in your front-controller or the bootstrap file right after 
+| requiring the Composer autoloader.
+*/
+
+if (PHP_SAPI !== 'cli') 
+{
+	$profiler 	= new \Fabfuel\Prophiler\Profiler();
+
+	$profiler->addAggregator(new \Fabfuel\Prophiler\Aggregator\Database\QueryAggregator());
+	$profiler->addAggregator(new \Fabfuel\Prophiler\Aggregator\Cache\CacheAggregator());
+
+
+	$pluginManager = new \Fabfuel\Prophiler\Plugin\Manager\Phalcon($profiler);
+
+	$pluginManager->registerDispatcher();
+	$pluginManager->registerView();
+}
+
+/*
+|--------------------------------------------------------------------------
 | Application Routing
 |--------------------------------------------------------------------------
 |
@@ -131,4 +166,4 @@ if ( !is_file( VENDOR_PATH.'autoload.php' ) ) {
 | you want to develope console application. (command-line application) 
 */
 
-include_once APPLICATION_PATH."application.php";
+include_once __DIR__."\application.php";
