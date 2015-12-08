@@ -4,11 +4,49 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Database Connections
+	|--------------------------------------------------------------------------
+	| 
+	| In Phalcon, all models can belong to the same database connection or 
+	| have an individual one. Actually, when Model needs to connect to the 
+	| database it requests the “db” service in the application’s services 
+	| container. If you want to add more database you can overwrite by 
+	| changing config array key like this one : 
+	|
+	| 'db1' => array(
+	|	'type' => '\Phalcon\Db\Adapter\Pdo\Mysql',
+	|   'host' => 'localhost',
+	|	'port' => 3306,
+	|   'username' => 'root',
+	|   'password' => '',
+	|   'dbname' => 'northwind',
+	|   'persistent' => false
+	| )
+	|
+	*/
+
+	'databases' => array (
+		'db1' => array (
+	        'type' => '\Phalcon\Db\Adapter\Pdo\Mysql',
+	        'config' => array (
+	        	'host' => '127.0.0.1',
+				'port' => 3306,
+		        'username' => 'root',
+		        'password' => '',
+		        'dbname' => '',
+				'dbname' => 'northwind',
+				'persistent' => false
+		    )
+		)
+	),
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Name
 	|--------------------------------------------------------------------------
 	|
-	| Application name is used for console applications for defining which
-	| application folder we are in. It must be unique name for application
+	| Application name is used for console and mvc applications for defining 
+	| which application folder we are in. It must be unique folder name.
 	|
 	*/
 
@@ -16,7 +54,7 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Layout Name
+	| * Layout Name
 	|--------------------------------------------------------------------------
 	|
 	| Layout name is default layout which is used by this application. Because 
@@ -29,7 +67,7 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default Language
+	| * Default Language
 	|--------------------------------------------------------------------------
 	|
 	| Apllication is working with the language files which is in the folder
@@ -38,20 +76,35 @@ return array(
 	*/
 
 	'default_language' => 'en',
-	
+
 	/*
 	|--------------------------------------------------------------------------
-	| 
+	| Default settings (MVC)
 	|--------------------------------------------------------------------------
 	|
-	|
+	| Default controller and method name which are used to execute the 
+	| controller from the browser
 	|
 	*/
 
 	'default_namespace' 	=> '',
 	'default_module' 		=> '',
 	'default_controller' 	=> 'index',
-	'default_action' 		=> 'index',
+	'default_method' 		=> 'index',
+
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Default settings (Task)
+	|--------------------------------------------------------------------------
+	|
+	| Default task and action name which are used to execute the task from 
+	| the command line. 
+	|
+	*/
+
+	'default_task' 			=> 'main',
+	'default_action' 		=> 'main',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +118,7 @@ return array(
 	|
 	*/
 
-	'extra_slashes' => false,
+	'extra_slashes' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -103,7 +156,7 @@ return array(
 	|
 	*/
 
-	'base-url' => null,
+	'base_url' => null,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -315,5 +368,17 @@ return array(
 	|
 	*/
 
-	'modules' => array()
+	'modules' => array(),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Default libraries
+	|--------------------------------------------------------------------------
+	|
+	|
+	*/
+
+	'libraries' => array(
+		'session' => '\Phalcon\Session\Adapter\Files'
+	)
 );
