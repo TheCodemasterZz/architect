@@ -153,18 +153,15 @@ $session = $di['session'];
 |
 */
 
-$dbConfigs = new \Phalcon\Config(
-    include_once _if(APPLICATION_PATH."configs/", "databases.php")
-);
-
-//Setup the database service
-foreach ($dbConfigs as $name => $dbConfig ) {
+foreach ($appConfig->databases as $name => $dbConfig ) {
     $di->set($name, function() use ($dbConfig, $di){
         $className = $dbConfig["type"];
         $database =  new $className($dbConfig["config"]->toArray());
-        $eventsManager = new \Phalcon\Events\Manager();
-        $eventsManager->attach('db', \Fabfuel\Prophiler\Plugin\Phalcon\Db\AdapterPlugin::getInstance( $di->get("profiler") ));
-        $database->setEventsManager($eventsManager);
+        if ( $di->has("profiler") ) {
+            $eventsManager = new \Phalcon\Events\Manager();
+            $eventsManager->attach('db', \Fabfuel\Prophiler\Plugin\Phalcon\Db\AdapterPlugin::getInstance( $di->get("profiler") ) );
+            $database->setEventsManager($eventsManager);
+        }
         $database->connect();
         return $database;
     });
@@ -397,7 +394,7 @@ if (PHP_SAPI !== 'cli')
             'namespace'     => $appConfig->default_namespace,
             'module'        => $appConfig->default_module,
             'controller'    => $appConfig->default_controller,
-            'action'        => $appConfig->default_action
+            'action'        => $appConfig->default_module
         ));
         $router->removeExtraSlashes($appConfig->extra_slashes);
         return include_once _if(APPLICATION_PATH."configs/", "routing.php");
@@ -464,6 +461,9 @@ $application->registerModules(
 if (PHP_SAPI === 'cli') 
 {
     $arguments = array();
+    $arguments['task'] = $appConfig->default_task;
+    $arguments['action'] = $appConfig->default_action;
+
     if ( isset( $_SERVER['argv'][1] ) AND strpos($argv[1], "@") !== FALSE  ) {
         $itemNumber = 0;
         $allArguments = explode("@", $argv[1]);
@@ -474,6 +474,8 @@ if (PHP_SAPI === 'cli')
         $taskArguments = explode(":", $allArguments[$itemNumber]);
         $arguments['task'] = $taskArguments[0];
         $arguments['action'] = $taskArguments[1];
+    } else {
+
     }
 
     $arguments['params'] = array();

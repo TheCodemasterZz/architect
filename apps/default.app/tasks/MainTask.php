@@ -9,8 +9,8 @@
 
 class MainTask extends \Phalcon\CLI\Task
 {
-    public function mainAction()
+    public function mainAction($params)
     {
-    	
+    	var_dump($params);
     }
 }
