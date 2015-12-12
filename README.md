@@ -6,4 +6,6 @@ Architect is a free, open-source platform based on the Phalcon PHP Framework.
 
 You can use composer to create The Architect project. 
 
+```php
 composer create-project architect/architect -s dev
+```
