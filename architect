@@ -7,13 +7,4 @@
  * @author 		Baris Kalaycioglu <thecodemasterzz@gmail.com>
  */
 
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-| 
-|
-*/
-
 require __DIR__.'/bootstrap/autoload.php';

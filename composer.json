@@ -9,8 +9,7 @@
             "name": "thecodemasterzz",
             "email": "thecodemasterzz@gmail.com"
         }
-    ],   
-    "minimum-stability": "dev",
+    ],
     "require": {
         "php": ">=5.5.0",
         "filp/whoops": "^2.0@dev",
