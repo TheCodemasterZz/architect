@@ -13,10 +13,8 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
-        "php": ">=5.3.9"
-    },
-    "require-dev": {
-        "filp/whoops": "^2.0@dev",
-        "fabfuel/prophiler": "dev-master"
+        "php": ">=5.3.9",
+        "filp/whoops": "1.1.*"
+        "fabfuel/prophiler": "1.5.0"
     }
 }
