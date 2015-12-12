@@ -1,2 +1,0 @@
-# architect
-The Architect Framework 
