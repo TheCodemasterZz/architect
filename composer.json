@@ -10,6 +10,7 @@
             "email": "thecodemasterzz@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.9",
         "filp/whoops": "^2.0@dev",
