@@ -26,7 +26,7 @@ return array(
 	*/
 
 	'databases' => array (
-		'db1' => array (
+		'db' => array (
 	        'type' => '\Phalcon\Db\Adapter\Pdo\Mysql',
 	        'config' => array (
 	        	'host' => '127.0.0.1',
@@ -42,6 +42,42 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| View Engines
+	|--------------------------------------------------------------------------
+	| 
+	| Phalcon\Mvc\View is a class for working with the “view” portion of the 
+	| model-view-controller pattern. That is, it exists to help keep the view 
+	| script separate from the model and controller scripts. It provides a 
+	|system of helpers, output filters, and variable escaping.
+	|
+	*/
+
+	'view_engines' => array(
+            '.volt' => array(
+                  'type' => '\Phalcon\Mvc\View\Engine\Volt',
+                  'options' => array(
+                        'compiledPath' => STORAGE_PATH . 'framework/views/',
+                        'compiledSeparator' => '_',
+                        'compiledExtension' => '.compiled',
+                        'stat' => true
+                  )
+            )
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| View Layout Name
+	|--------------------------------------------------------------------------
+	|
+	| View Layout name is default layout which is used by this application as 
+	| a view master layout which must be put in the application layout folder.
+	|
+	*/
+
+	'view_layout_name' => 'main',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Name
 	|--------------------------------------------------------------------------
 	|
@@ -54,16 +90,16 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| * Layout Name
+	| Theme Layout Name
 	|--------------------------------------------------------------------------
 	|
-	| Layout name is default layout which is used by this application. Because 
+	| Theme Layout name is default layout which is used by this application. Because 
 	| of being many application assets which are unique for this application
-	| must be put in the layout folder.
+	| must be put in the public folder.
 	|
 	*/
 
-	'layout_name' => "default",
+	'theme_layout_name' => "default",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -79,6 +115,56 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Registering Namespaces
+	|--------------------------------------------------------------------------
+	|
+	| If you’re organizing your code using namespaces, or external libraries 
+	| do so, the registerNamespaces() provides the autoloading mechanism. It 
+	| takes an associative array, which keys are namespace prefixes and their 
+	| values are directories where the classes are located in. The namespace 
+	| separator will be replaced by the directory separator when the loader 
+	| try to find the classes. Remember always to add a trailing slash at the 
+	| end of the paths.
+	|
+	| Example Usage:
+	|
+	| array(
+	| 	'Example\Base' => "vendor/example/base/"
+	| )  
+	|
+	*/
+
+	'namespaces' => array(
+		'Modules\Common' => APPLICATION_PATH . 'modules/common/',
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Module Registration
+	|--------------------------------------------------------------------------
+	|
+	| Module registration is used for setting all installed modules.
+	|		
+	| Example Usage:
+	|
+	| array(
+	| 	'dashboard' => array(
+	| 		'className' => 'Modules\Default\Module',
+	|		'path' => APPLICATION_PATH . 'modules/dashboard/Module.php'
+	| 	)
+	| )
+	|
+	*/
+
+	'modules' => array(
+		'common' => array(
+			'className' => 'Modules\Common\Module',
+			'path' => APPLICATION_PATH . 'modules/common/module.php'
+		)
+	),
+
+	/*
+	|--------------------------------------------------------------------------
 	| Default settings (MVC)
 	|--------------------------------------------------------------------------
 	|
@@ -87,8 +173,8 @@ return array(
 	|
 	*/
 
-	'default_namespace' 	=> '',
-	'default_module' 		=> '',
+	'default_namespace' 	=> 'Modules\Common\Controllers',
+	'default_module' 		=> 'common',
 	'default_controller' 	=> 'index',
 	'default_method' 		=> 'index',
 
@@ -131,7 +217,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => FALSE,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -290,30 +376,6 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Registering Namespaces
-	|--------------------------------------------------------------------------
-	|
-	| If you’re organizing your code using namespaces, or external libraries 
-	| do so, the registerNamespaces() provides the autoloading mechanism. It 
-	| takes an associative array, which keys are namespace prefixes and their 
-	| values are directories where the classes are located in. The namespace 
-	| separator will be replaced by the directory separator when the loader 
-	| try to find the classes. Remember always to add a trailing slash at the 
-	| end of the paths.
-	|
-	| Example Usage:
-	|
-	| array(
-	| 	'Example\Base' => "vendor/example/base/"
-	| )  
-	|
-	*/
-
-	'namespaces' => array(
-	),
-
-	/*
-	|--------------------------------------------------------------------------
 	| Registering Prefixes
 	|--------------------------------------------------------------------------
 	|
@@ -349,26 +411,6 @@ return array(
 	*/
 
 	'extensions' => array("php"),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Module Registration : SOON
-	|--------------------------------------------------------------------------
-	|
-	| Module registration is used for setting all installed modules.
-	|		
-	| Example Usage:
-	|
-	| array(
-	| 	'dashboard' => array(
-	| 		'className' => 'Modules\Dashboard\Module',
-	|		'path' => APPLICATION_PATH . 'modules/dashboard/Module.php'
-	| 	)
-	| )
-	|
-	*/
-
-	'modules' => array(),
 
 	/*
 	|--------------------------------------------------------------------------

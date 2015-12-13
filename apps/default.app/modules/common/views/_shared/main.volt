@@ -7,12 +7,12 @@
     <title>{{ application.name }}</title>
     <!-- Global CSS -->
     <link rel="stylesheet" type="text/css" href="/global/plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/layouts/{{ application.layout_name }}/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/layouts/{{ application.theme_layout_name }}/css/style.css" />
     <!-- Page Level CSS -->
     {{ assets.outputCss() }}
     <style>
         .header {
-            background: url('/assets/layouts/{{ application.layout_name }}/img/bg.png') no-repeat center center scroll;
+            background: url('/assets/layouts/{{ application.theme_layout_name }}/img/bg.png') no-repeat center center scroll;
         }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,7 +25,7 @@
 <body>
     <!-- Header -->
     <header id="top" class="header">    
-    {% block content %}{% endblock %}
+    <?php echo $this->getContent(); ?>
     </header>
     {{ assets.outputJs() }}    
     <!-- Global JS -->
