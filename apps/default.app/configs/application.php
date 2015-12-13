@@ -344,9 +344,9 @@ return array(
 
 	'paths' => array(
 		APPLICATION_PATH . 'controllers/',
-        APPLICATION_PATH . 'models/',
-        APPLICATION_PATH . 'tasks/'
-    ),
+		APPLICATION_PATH . 'models/',
+		APPLICATION_PATH . 'tasks/'
+	),
 
 	/*
 	|--------------------------------------------------------------------------
