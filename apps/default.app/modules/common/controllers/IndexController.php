@@ -13,10 +13,5 @@ class IndexController extends \Phalcon\Mvc\Controller
 {
     public function indexAction() 
     {	
-		var_dump(
-			\Orders::findFirst(1)
-		);
-
-		die;
     }
 }
