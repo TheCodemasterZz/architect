@@ -348,16 +348,13 @@ $di->set('language', function() use ($appConfig) {
 |
 */
 
-$viewConfigs = new \Phalcon\Config(
-    include_once _if(APPLICATION_PATH."configs/", "views.php")
-);
-
 if (PHP_SAPI !== 'cli') 
 {
-    $di->set('view', function() use ($viewConfigs){
+    $di->set('view', function() use ($appConfig){
         $view = new \Phalcon\Mvc\View();
-        $view->setViewsDir(APPLICATION_PATH."views/");
-        $viewEngines = $viewConfigs->view_engines;
+        $view->setLayoutsDir( '/_shared/');
+        $view->setTemplateAfter($appConfig->view_layout_name);
+        $viewEngines = $appConfig->view_engines;
         foreach ($viewEngines as $extension => $parameters) {
             $view->registerEngines(array(
                 $extension => function($view, $di) use ($parameters) {
@@ -394,7 +391,7 @@ if (PHP_SAPI !== 'cli')
             'namespace'     => $appConfig->default_namespace,
             'module'        => $appConfig->default_module,
             'controller'    => $appConfig->default_controller,
-            'action'        => $appConfig->default_module
+            'action'        => $appConfig->default_method
         ));
         $router->removeExtraSlashes($appConfig->extra_slashes);
         return include_once _if(APPLICATION_PATH."configs/", "routing.php");
@@ -499,7 +496,6 @@ else
     {
         $toolbar = new \Fabfuel\Prophiler\Toolbar($profiler);
         $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
-        $toolbar->addDataCollector(new \Orders);
         echo $toolbar->render();
     }
 
