@@ -5,10 +5,10 @@ if (!extension_loaded('phalcon')) {
 }
 
 function _if( $path, $name ) {
-	$filePath = $path.'/'.(ENVIROMENT == '' ? '' : ENVIROMENT.'/').$name;
-	if ( !is_file($filePath) )
-		$filePath = $path.'/'.$name;
-	return $filePath;
+    $filePath = $path.'/'.(ENVIROMENT == '' ? '' : ENVIROMENT.'/').$name;
+    if ( !is_file($filePath) )
+        $filePath = $path.'/'.$name;
+    return $filePath;
 } 
 
 /*
@@ -48,32 +48,32 @@ $solutionRouting = new \Phalcon\Config(
 
 $configurationName = null;
 if (PHP_SAPI === 'cli') {    
-	if ( isset( $_SERVER['argv'][1] ) AND strpos($argv[1], "@") !== FALSE  ) {
-		$arguments = explode("@", $argv[1]);
-		$configurationName = $arguments[0];
-	}
+    if ( isset( $_SERVER['argv'][1] ) AND strpos($argv[1], "@") !== FALSE  ) {
+        $arguments = explode("@", $argv[1]);
+        $configurationName = $arguments[0];
+    }
 } else {
-	if ( isset( $_SERVER['SERVER_NAME'] ) ) {
-		$configurationName = $_SERVER['SERVER_NAME'];
-	}
+    if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+        $configurationName = $_SERVER['SERVER_NAME'];
+    }
 }
 
 if ( !isset($solutionRouting->routing->$configurationName->name) ) {
-	if ( isset( $solutionRouting->routing->default->name ) ) {
-		$applicationName = $solutionRouting->routing->default->name;
-		$enviromentName = "";
-		if ( isset($solutionRouting->routing->default->enviroment) ) {
-			$enviromentName = $solutionRouting->routing->default->enviroment;
-		}
-	} else {
-		_d("Solution routing configuration is failed. Please check your application route configurations");
-	}
+    if ( isset( $solutionRouting->routing->default->name ) ) {
+        $applicationName = $solutionRouting->routing->default->name;
+        $enviromentName = "";
+        if ( isset($solutionRouting->routing->default->enviroment) ) {
+            $enviromentName = $solutionRouting->routing->default->enviroment;
+        }
+    } else {
+        _d("Solution routing configuration is failed. Please check your application route configurations");
+    }
 } else {
-	$applicationName = $solutionRouting->routing->$configurationName->name;
-	$enviromentName = "";
-	if ( isset($solutionRouting->routing->$configurationName->enviroment) ) {
-		$enviromentName = $solutionRouting->routing->$configurationName->enviroment;
-	}
+    $applicationName = $solutionRouting->routing->$configurationName->name;
+    $enviromentName = "";
+    if ( isset($solutionRouting->routing->$configurationName->enviroment) ) {
+        $enviromentName = $solutionRouting->routing->$configurationName->enviroment;
+    }
 }
 
 define("ENVIROMENT", $enviromentName);
@@ -81,7 +81,7 @@ define("APPLICATION_NAME", $applicationName);
 define("APPLICATION_PATH", $pathConfigs->solution_path.APPLICATION_NAME."/" );
 
 if ( !is_dir( APPLICATION_PATH ) ) 
-	_d("There is no application called \"".APPLICATION_NAME."\" in your apps folder.");
+    _d("There is no application called \"".APPLICATION_NAME."\" in your apps folder.");
 
 /*
 |--------------------------------------------------------------------------
@@ -95,9 +95,9 @@ if ( !is_dir( APPLICATION_PATH ) )
 */
 
 if ( !is_file( VENDOR_PATH.'autoload.php' ) ) {
-	_d("There is no autoload.php in your \"".VENDOR_PATH."\". Please update your vendor folder.");
+    _d("There is no autoload.php in your \"".VENDOR_PATH."\". Please update your vendor folder.");
 } else {
-	require VENDOR_PATH.'autoload.php';
+    require VENDOR_PATH.'autoload.php';
 }
 
 /*
