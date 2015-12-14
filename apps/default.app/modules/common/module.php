@@ -46,8 +46,10 @@ class Module implements ModuleDefinitionInterface
             return $dispatcher;
         });
 
-        // Setting up the view component
+        $appConfig = $di->get('config');
         $view = $di->get('view');
+        $view->setLayoutsDir( '_shared/');
+        $view->setTemplateAfter($appConfig->view_layout_name);
         $view->setViewsDir( __DIR__ . '/views/');
         $di->set('view', $view);
     }

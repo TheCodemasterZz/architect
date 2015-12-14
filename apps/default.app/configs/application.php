@@ -20,7 +20,7 @@ return array(
 	|   'username' => 'root',
 	|   'password' => '',
 	|   'dbname' => 'northwind',
-	|   'persistent' => false
+	|   'persistent' => FALSE
 	| )
 	|
 	*/
@@ -35,7 +35,7 @@ return array(
 		        'password' => '',
 		        'dbname' => '',
 				'dbname' => 'northwind',
-				'persistent' => false
+				'persistent' => FALSE
 		    )
 		)
 	),
@@ -59,7 +59,7 @@ return array(
 			'compiledPath' => STORAGE_PATH . 'framework/views/',
 			'compiledSeparator' => '_',
 			'compiledExtension' => '.compiled',
-			'stat' => true
+			'stat' => TRUE
 			)
 		)
 	),
@@ -204,7 +204,7 @@ return array(
 	|
 	*/
 
-	'extra_slashes' => true,
+	'extra_slashes' => TRUE,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -229,7 +229,7 @@ return array(
 	|
 	*/
 
-	'html_minify' => true,
+	'html_minify' => FALSE,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -242,7 +242,7 @@ return array(
 	|
 	*/
 
-	'base_url' => null,
+	'base_url' => NULL,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -269,7 +269,7 @@ return array(
 	|
 	*/
 
-	'cookie_encryption' => true,
+	'cookie_encryption' => TRUE,
 
 	/*
 	|--------------------------------------------------------------------------

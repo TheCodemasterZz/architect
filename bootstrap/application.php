@@ -14,6 +14,7 @@ if (PHP_SAPI === 'cli') {
     $application = new \Phalcon\CLI\Console($di);
 } else {
     $application = new \Phalcon\Mvc\Application($di);
+    $di['app'] = $application;
 }
 
 /*
@@ -27,12 +28,10 @@ if (PHP_SAPI === 'cli') {
 */
 
 $appConfig = new \Phalcon\Config(
-    include_once _if(APPLICATION_PATH."configs/", "application.php")
+    include_once APPLICATION_PATH."configs/application.php"
 );
 
-$di->set('application', function () use ($appConfig) {
-    return $appConfig;
-});
+$di->set("config", $appConfig);
 
 //Loader is setted
 $loader = new \Phalcon\Loader();
@@ -74,47 +73,11 @@ $loader->register();
 |
 */
 
-$di->set('error', function () use ($appConfig) {
-    return include_once _if(APPLICATION_PATH."configs/", "error.php");
+$di->set('error', function () {
+    return include_once APPLICATION_PATH."configs/error.php";
 });	
 
 $error = $di['error'];
-
-/*
-|--------------------------------------------------------------------------
-| Profiller Service
-|--------------------------------------------------------------------------
-|
-| 
-|
-*/
-
-if (PHP_SAPI !== 'cli') 
-{
-    $di->set('profiler', function () use ($profiler) {
-        return $profiler;
-    }); 
-
-
-}
-
-/*
-|--------------------------------------------------------------------------
-| Profiller Logger Service
-|--------------------------------------------------------------------------
-|
-| 
-|
-*/
-
-if (PHP_SAPI !== 'cli') 
-{
-    $di->set('console', function () use ($di) {
-        $profiler = $di->get("profiler");
-        $logger = new \Fabfuel\Prophiler\Adapter\Psr\Log\Logger($profiler);
-        return $logger;
-    });
-}
 
 /*
 |--------------------------------------------------------------------------
@@ -130,7 +93,9 @@ if (PHP_SAPI !== 'cli')
 |
 */
 
-$di->set('session', function() use ($appConfig) {
+$di->set('session', function() {
+    global $di;
+    $appConfig = $di->get('config');
     $session = new $appConfig->libraries->session();
     $session->start();
     return $session;
@@ -157,11 +122,6 @@ foreach ($appConfig->databases as $name => $dbConfig ) {
     $di->set($name, function() use ($dbConfig, $di){
         $className = $dbConfig["type"];
         $database =  new $className($dbConfig["config"]->toArray());
-        if ( $di->has("profiler") ) {
-            $eventsManager = new \Phalcon\Events\Manager();
-            $eventsManager->attach('db', \Fabfuel\Prophiler\Plugin\Phalcon\Db\AdapterPlugin::getInstance( $di->get("profiler") ) );
-            $database->setEventsManager($eventsManager);
-        }
         $database->connect();
         return $database;
     });
@@ -181,13 +141,24 @@ foreach ($appConfig->databases as $name => $dbConfig ) {
 |
 */
 
-$di->set('cookies', function() use ($appConfig) {
+$di->set('cookies', function() {
+    global $di;
+    $appConfig = $di->get('config');
     $cookies = new \Phalcon\Http\Response\Cookies();
     $cookies->useEncryption($appConfig->cookie_encryption);
     return $cookies;
 });
 
-//Setup the cache service
+
+/*
+|--------------------------------------------------------------------------
+| Cache Service
+|--------------------------------------------------------------------------
+|
+|
+*/
+
+
 $di->set('cache', function(){
     return include_once _if(APPLICATION_PATH."services/", "cache.php");
 });
@@ -231,38 +202,6 @@ $di->set('assets', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Meta Data Service
-|--------------------------------------------------------------------------
-|
-| Because Phalcon\Mvc\Model requires meta-data like field names, data
-| types, primary keys, etc. this component collect them and store for 
-| further querying by Phalcon\Mvc\Model. Phalcon\Mvc\Model\MetaData can 
-| also use adapters to store temporarily or permanently the meta-data.
-|
-*/
-
-$di->set('modelsMetadata ', function() {
-    return new \Phalcon\Mvc\Model\MetaData\Memory();
-}, true);
-
-/*
-|--------------------------------------------------------------------------
-| Model Manager Service
-|--------------------------------------------------------------------------
-|
-| This components controls the initialization of models, keeping record 
-| of relations between the different models of the application. A 
-| ModelsManager is injected to a model via a Dependency Injector/Services 
-| Container such as Phalcon\DI.
-|
-*/
-
-$di->set('modelsManager', function() {
-    return new \Phalcon\Mvc\Model\Manager();
-});
-
-/*
-|--------------------------------------------------------------------------
 | Url Service
 |--------------------------------------------------------------------------
 |
@@ -274,13 +213,16 @@ $di->set('modelsManager', function() {
 
 if (PHP_SAPI !== 'cli') 
 {
-    $di->set('url', function () use ($appConfig) {
+    $di->set('url', function () {
+        global $di;
+        $appConfig = $di->get('config');
         $url = new \Phalcon\Mvc\Url();
         if (!is_null($appConfig->base_url))
             $url->setBaseUri($appConfig->base_url);
         return $url;
     }, true);
 }
+
 /*
 |--------------------------------------------------------------------------
 | Crypt Service
@@ -292,15 +234,13 @@ if (PHP_SAPI !== 'cli')
 |
 */
 
-$di->set('crypt', function () use ($appConfig) {
+$di->set('crypt', function (){
+    global $di;
+    $appConfig = $di->get('config');
     $crypt = new \Phalcon\Crypt();
-    //Type of cipher algoritm
     $crypt->setCipher($appConfig->cipher);
-    //Set a global encryption key
     $crypt->setKey($appConfig->key);
-    //Set a global encryption mode
     $crypt->setMode($appConfig->encryption_mode);
-    //Return crypt
     return $crypt;
 }, true);
 
@@ -314,26 +254,13 @@ $di->set('crypt', function () use ($appConfig) {
 |
 */
 
-$di->set('security', function() use ($appConfig) {
+$di->set('security', function() {
+    global $di;
+    $appConfig = $di->get('config');
     $security = new \Phalcon\Security();
     $security->setWorkFactor($appConfig->work_factor);
     return $security;
 }, true);
-
-//Registering the translate component
-//TODO: there can be many file in en folder.
-$di->set('language', function() use ($appConfig) {
-    $defaultLanguage = $appConfig->default_language;
-    $fileName = APPLICATION_PATH."resources/languages/{$defaultLanguage}/{$defaultLanguage}.php";;        
-    if (file_exists($fileName)) {
-        $messages = include_once $fileName;
-    } else {
-        $messages = array();
-    }
-    return new \Phalcon\Translate\Adapter\NativeArray(array(
-        "content" => $messages
-    ));
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -350,10 +277,10 @@ $di->set('language', function() use ($appConfig) {
 
 if (PHP_SAPI !== 'cli') 
 {
-    $di->set('view', function() use ($appConfig){
+    $di->set('view', function() {
+        global $di;
+        $appConfig = $di->get('config');
         $view = new \Phalcon\Mvc\View();
-        $view->setLayoutsDir( '/_shared/');
-        $view->setTemplateAfter($appConfig->view_layout_name);
         $viewEngines = $appConfig->view_engines;
         foreach ($viewEngines as $extension => $parameters) {
             $view->registerEngines(array(
@@ -368,22 +295,25 @@ if (PHP_SAPI !== 'cli')
     });
 }
 
+/*
+|--------------------------------------------------------------------------
+| Router Service
+|--------------------------------------------------------------------------
+|
+| The router component allows defining routes that are mapped to 
+| controllers or handlers that should receive the request. A router simply 
+| parses a URI to determine this information. The router has two modes: 
+| MVC mode and match-only mode. The first mode is ideal for working with 
+| MVC applications.
+|
+*/  
+
 if (PHP_SAPI !== 'cli') 
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Router Service
-    |--------------------------------------------------------------------------
-    |
-    | The router component allows defining routes that are mapped to 
-    | controllers or handlers that should receive the request. A router simply 
-    | parses a URI to determine this information. The router has two modes: 
-    | MVC mode and match-only mode. The first mode is ideal for working with 
-    | MVC applications.
-    |
-    */
 
-    $di->set('router', function () use ($appConfig) {
+    $di->set('router', function () {
+        global $di;
+        $appConfig = $di->get('config');
         $router = new \Phalcon\Mvc\Router\Annotations(false);
         $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_GET_URL); 
         $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
@@ -394,7 +324,7 @@ if (PHP_SAPI !== 'cli')
             'action'        => $appConfig->default_method
         ));
         $router->removeExtraSlashes($appConfig->extra_slashes);
-        return include_once _if(APPLICATION_PATH."configs/", "routing.php");
+        return include_once APPLICATION_PATH."configs/routing.php";
     });
 }
 
@@ -487,17 +417,10 @@ if (PHP_SAPI === 'cli')
     $application->handle($arguments); 
 } 
 else 
-{
-
+{   
+    $debugWidget = new \Phalcon\Debug\DebugWidget($di);
     //Handle the request
     $output = $application->handle()->getContent();
-
-    if ( $appConfig->debug ) 
-    {
-        $toolbar = new \Fabfuel\Prophiler\Toolbar($profiler);
-        $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
-        echo $toolbar->render();
-    }
 
     // HTML Minification
     if ( $appConfig->html_minify ) {
@@ -508,7 +431,6 @@ else
             return $buffer;
         });
     }
-
 
     echo $output;
 
