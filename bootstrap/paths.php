@@ -12,7 +12,7 @@ return array(
     |
     */
 
-	'solution_path' => ROOT_PATH."/apps/",
+    'solution_path' => ROOT_PATH."/apps/",
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
     |
     */
 
-	'storage_path' => ROOT_PATH."/storage/",
+    'storage_path' => ROOT_PATH."/storage/",
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return array(
     |
     */
 
-	'public_path' => ROOT_PATH."/public/",
+    'public_path' => ROOT_PATH."/public/",
 
     /*
     |--------------------------------------------------------------------------
