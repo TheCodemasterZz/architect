@@ -14,7 +14,7 @@
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\PlainTextHandler;
 
-$run     = new Whoops\Run;
+$run = new Whoops\Run;
 if (PHP_SAPI === 'cli') 
     $handler = new PlainTextHandler;
 else
