@@ -1,32 +1,49 @@
 <?php
 
-/**
- * architect - a PHP Framework for rapid developing
- *
- * @package  architect
- * @author   Baris Kalaycioglu <thecodemasterzz@gmail.com>
- */
-
 if (!extension_loaded('phalcon')) {
     _d('Phalcon extension isn\'t installed. Please follow these instructions to install it: http://docs.phalconphp.com/en/latest/reference/install.html');
 }
 
-# ROOT PATH is defined.
-define("ROOT_PATH", realpath( __DIR__."/../") );
+function _if( $path, $name ) {
+	$filePath = $path.'/'.(ENVIROMENT == '' ? '' : ENVIROMENT.'/').$name;
+	if ( !is_file($filePath) )
+		$filePath = $path.'/'.$name;
+	return $filePath;
+} 
 
-# The FactoryDefault Dependency Injector automatically registers the right services providing a full-stack framework
-if (PHP_SAPI === 'cli') {
-	$di = new \Phalcon\DI\FactoryDefault\CLI();
-} else {
-	$di = new \Phalcon\DI\FactoryDefault();
-}
+/*
+|--------------------------------------------------------------------------
+| Define Paths
+|--------------------------------------------------------------------------
+|
+| I defined some path which can be called anywhere. Root, Solution, 
+| Public, | Vendor, Apps and Application path is defined here. 
+| 
+*/
+
+define("ROOT_PATH", realpath( __DIR__."/../") );
 
 $pathConfigs = new \Phalcon\Config(
     include_once __DIR__."/paths.php"
 );
 
-$applicationRouting = new \Phalcon\Config(
-    include_once __DIR__."/route.php"
+define("SOLUTION_PATH", $pathConfigs->solution_path );
+define("STORAGE_PATH", $pathConfigs->storage_path );
+define("PUBLIC_PATH", $pathConfigs->public_path );
+define("VENDOR_PATH", $pathConfigs->vendor_path );
+define("GLOBAL_CONFIG_PATH", $pathConfigs->global_config_path );
+
+/*
+|--------------------------------------------------------------------------
+| Define Application
+|--------------------------------------------------------------------------
+|
+| I define which application is running by using server/console parameters. 
+| 
+*/
+
+$solutionRouting = new \Phalcon\Config(
+    include_once GLOBAL_CONFIG_PATH."routing.php"
 );
 
 $configurationName = null;
@@ -41,42 +58,27 @@ if (PHP_SAPI === 'cli') {
 	}
 }
 
-if ( !isset($applicationRouting->routing->$configurationName->name) ) {
-	if ( isset( $applicationRouting->routing->default->name ) ) {
-		$applicationName = $applicationRouting->routing->default->name;
+if ( !isset($solutionRouting->routing->$configurationName->name) ) {
+	if ( isset( $solutionRouting->routing->default->name ) ) {
+		$applicationName = $solutionRouting->routing->default->name;
+		$enviromentName = "";
+		if ( isset($solutionRouting->routing->default->enviroment) ) {
+			$enviromentName = $solutionRouting->routing->default->enviroment;
+		}
 	} else {
 		_d("Solution routing configuration is failed. Please check your application route configurations");
 	}
 } else {
-	$applicationName = $applicationRouting->routing->$configurationName->name;
+	$applicationName = $solutionRouting->routing->$configurationName->name;
+	$enviromentName = "";
+	if ( isset($solutionRouting->routing->$configurationName->enviroment) ) {
+		$enviromentName = $solutionRouting->routing->$configurationName->enviroment;
+	}
 }
 
+define("ENVIROMENT", $enviromentName);
 define("APPLICATION_NAME", $applicationName);
-
-/*
-|--------------------------------------------------------------------------
-| Define Paths
-|--------------------------------------------------------------------------
-|
-| I defined some path which can be called anywhere. Root, Solution, 
-| Public, | Vendor, Apps and Application path is defined here. 
-| 
-*/
-
-define("SOLUTION_PATH", 	$pathConfigs->solution_path );
-define("STORAGE_PATH", 		$pathConfigs->storage_path );
-define("APPLICATION_PATH", 	$pathConfigs->solution_path.APPLICATION_NAME."/" );
-define("PUBLIC_PATH", 		$pathConfigs->public_path );
-define("VENDOR_PATH", 		$pathConfigs->vendor_path );
-
-/*
-|--------------------------------------------------------------------------
-| Check Application Path
-|--------------------------------------------------------------------------
-|
-| I am checking whether there is a application in application path or not
-| 
-*/
+define("APPLICATION_PATH", $pathConfigs->solution_path.APPLICATION_NAME."/" );
 
 if ( !is_dir( APPLICATION_PATH ) ) 
 	_d("There is no application called \"".APPLICATION_NAME."\" in your apps folder.");
@@ -100,12 +102,11 @@ if ( !is_file( VENDOR_PATH.'autoload.php' ) ) {
 
 /*
 |--------------------------------------------------------------------------
-| Application Routing
+| Di Services 
 |--------------------------------------------------------------------------
-|
-| Application routing by looking $_SERVER["SERVER_NAME"] parameter and
-| solution config file. However routing may be done in different way if
-| you want to develope console application. (command-line application) 
+| Phalcon\Di is a component that implements Dependency Injection/Service 
+| Location of services and it”s itself a container for them. 
 */
 
-include_once __DIR__."\application.php";
+include_once __DIR__."/services.php";
+include_once __DIR__."/application.php";

@@ -51,4 +51,15 @@ return array(
     */
 
 	'vendor_path' => ROOT_PATH."/vendor/",
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Config Path
+    |--------------------------------------------------------------------------
+    |
+    | Global config is used to define solution routing, paths etc.
+    |
+    */
+
+    'global_config_path' => ROOT_PATH."/configs/",
 );

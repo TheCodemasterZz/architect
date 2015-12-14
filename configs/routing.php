@@ -16,14 +16,16 @@ return array(
     | You can at local.dev domain as the example below.
     |
     | "local.dev" => array(
-    |   "name"          => "my.local.app"
+    |   "name" => "my.local.app",
+    |   "enviroment" => "development"
     | )
     |
     */
 
     'routing' => array(
         "default" => array(
-            "name"          => "default.app"
+            "name" => "default.app",
+            "enviroment" => "dev"
         )
     )
 );
