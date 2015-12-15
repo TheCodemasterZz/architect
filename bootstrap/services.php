@@ -154,7 +154,7 @@ $di->set('cookies', function() {
 |
 */
 
-$di->set('response', function(){
+$di->set('response', function() {
     return new \Phalcon\Http\Response();
 });
 
@@ -186,8 +186,7 @@ $di->set('assets', function () {
 |
 */
 
-if (PHP_SAPI !== 'cli') 
-{
+if (PHP_SAPI !== 'cli') {
     $di->set('url', function () {
         global $di;
         $appConfig = $di->get('config');
@@ -209,7 +208,7 @@ if (PHP_SAPI !== 'cli')
 |
 */
 
-$di->set('crypt', function (){
+$di->set('crypt', function () {
     global $di;
     $appConfig = $di->get('config');
     $crypt = new \Phalcon\Crypt();
@@ -250,8 +249,7 @@ $di->set('security', function() {
 |
 */
 
-if (PHP_SAPI !== 'cli') 
-{
+if (PHP_SAPI !== 'cli') {
     $di->set('view', function() {
         global $di;
         $appConfig = $di->get('config');
@@ -283,8 +281,7 @@ if (PHP_SAPI !== 'cli')
 |
 */  
 
-if (PHP_SAPI !== 'cli') 
-{
+if (PHP_SAPI !== 'cli') {
 
     $di->set('router', function () {
         global $di;
