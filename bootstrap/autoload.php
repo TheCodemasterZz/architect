@@ -109,4 +109,4 @@ if ( !is_file( VENDOR_PATH.'autoload.php' ) ) {
 */
 
 include_once __DIR__."/services.php";
-include_once __DIR__."/application.php";
+include_once APPLICATION_PATH."/application.php";
