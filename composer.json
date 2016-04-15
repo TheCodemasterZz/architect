@@ -13,8 +13,6 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.3.9",
-        "filp/whoops": "1.1.*",
-        "phalcon-tools/debugger": "^1.0",
-        "phalcon-ext/mailer": "^2.0"
+        "filp/whoops": "1.1.*"
     }
 }
