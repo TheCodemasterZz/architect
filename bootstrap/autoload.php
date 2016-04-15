@@ -1,5 +1,9 @@
 <?php
 
+function _d( $string ) {
+    die($string);
+}
+
 if (!extension_loaded('phalcon')) {
     _d('Phalcon extension isn\'t installed. Please follow these instructions to install it: http://docs.phalconphp.com/en/latest/reference/install.html');
 }
